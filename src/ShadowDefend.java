@@ -8,7 +8,7 @@ public class ShadowDefend extends AbstractGame {
     private List<Point> trail;
     private Spawner slicerSpawner;
     private int timescale;
-    private Attacker[] slicerArr;
+    private Slicer[] slicerArr;
     private boolean start;
 
     private final int SLICER_QTY = 5;
@@ -31,7 +31,7 @@ public class ShadowDefend extends AbstractGame {
     public ShadowDefend() {
         map = new TiledMap("res/levels/1.tmx");
         trail = map.getAllPolylines().get(0);
-        slicerArr = attackerGenerator(SLICER_QTY, trail, new Image("res/images/slicer.png"));
+        slicerArr = slicersGenerator(SLICER_QTY, trail);
         slicerSpawner = new Spawner(slicerArr,SLICER_INTERVAL,SLICER_QTY);
         timescale = BASE_TIMESCALE;
         start = false;
@@ -69,10 +69,10 @@ public class ShadowDefend extends AbstractGame {
     }
 
     // Creates an array of attackers for the spawner
-    private Attacker[] attackerGenerator(int quantity, List<Point> trail, Image image){
-        Attacker[] arr = new Attacker[quantity];
+    private Slicer[] slicersGenerator(int quantity, List<Point> trail){
+        Slicer[] arr = new Slicer[quantity];
         for ( int i = 0 ; i < quantity ; i++ ){
-            arr[i] = new Slicer(trail, image);
+            arr[i] = new SuperSlicer(trail);
         }
         return arr;
     }

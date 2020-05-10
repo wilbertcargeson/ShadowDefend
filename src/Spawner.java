@@ -1,6 +1,6 @@
 public class Spawner {
 
-    private Attacker attacker[];
+    private Slicer slicers[];
     private double interval;
     private int attackerQty;
 
@@ -11,8 +11,8 @@ public class Spawner {
     private double intervalFrame;
     private double timescale = ShadowDefend.BASE_TIMESCALE;
 
-    public Spawner(Attacker attacker[],double interval, int attackerQty) {
-        this.attacker = attacker;
+    public Spawner(Slicer slicers[],double interval, int attackerQty) {
+        this.slicers = slicers;
         this.attackerQty = attackerQty;
         this.interval = interval;
         updateCount = 0;
@@ -22,12 +22,12 @@ public class Spawner {
     // Spawns a wave of the attacker
     public boolean waveSpawn(){
         // Checks if the last attacker have reach the end
-        if ( attacker[attackerQty-1].getIndex() >= attacker[attackerQty-1].getMaxIndex()) {
+        if ( slicers[attackerQty-1].getIndex() >= slicers[attackerQty-1].getMaxIndex()) {
             return false;
         }
         for ( int i = 0; i < attackerQty; i++){
             if ( (i * intervalFrame) <= updateCount ){
-                attacker[i].spawn();
+                slicers[i].spawn();
             }
         }
         updateCount += timescale;
@@ -38,7 +38,7 @@ public class Spawner {
         timescale = t;
         // Update timescale for all attackers
         for ( int i = 0 ; i < attackerQty ; i++){
-            attacker[i].setTimescale(t);
+            slicers[i].setTimescale(t);
         }
     }
 

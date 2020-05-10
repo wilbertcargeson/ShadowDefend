@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="wcargeson-project-1" />
+        <module name="wcargeson-project-2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="wcargeson-project-1" target="8" />
+      <module name="wcargeson-project-2" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
