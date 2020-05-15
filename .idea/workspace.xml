@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41a703a6-a44e-4027-96fa-c1e8f2b1a99e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wcargeson-project-2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/bagel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApexSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApexSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileLoc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MegaSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MegaSlicer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ShadowDefend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShadowDefend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Slicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Slicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spawner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wcargeson-project-1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SlicerSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SlicerSpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SuperSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SuperSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ApexSlicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ApexSlicer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FileLoc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MegaSlicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MegaSlicer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ShadowDefend.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ShadowDefend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Spawner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SuperSlicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SuperSlicer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RunManager">
     <configuration name="ShadowDefend" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -71,25 +76,61 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="115" key="GridCell.Tab.0.bottom" timestamp="1589125976249">
+    <state x="551" y="303" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589210839227">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="115" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589125976249" />
-    <state width="1493" height="115" key="GridCell.Tab.0.center" timestamp="1589125976249">
+    <state x="551" y="303" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1589210839227" />
+    <state x="250" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589211015453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="115" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589125976249" />
-    <state width="1493" height="115" key="GridCell.Tab.0.left" timestamp="1589125976249">
+    <state x="250" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1589211015453" />
+    <state x="667" y="167" key="FileChooserDialogImpl" timestamp="1589289704775">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="115" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589125976249" />
-    <state width="1493" height="115" key="GridCell.Tab.0.right" timestamp="1589125976249">
+    <state x="667" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589289704775" />
+    <state width="1493" height="251" key="GridCell.Tab.0.bottom" timestamp="1589556558090">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="115" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589125976249" />
+    <state width="1493" height="251" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589556558090" />
+    <state width="1493" height="251" key="GridCell.Tab.0.center" timestamp="1589556558090">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="251" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589556558090" />
+    <state width="1493" height="251" key="GridCell.Tab.0.left" timestamp="1589556558090">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="251" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589556558090" />
+    <state width="1493" height="251" key="GridCell.Tab.0.right" timestamp="1589556558090">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="251" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589556558090" />
+    <state width="723" height="261" key="GridCell.Tab.1.bottom" timestamp="1589198191622">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="723" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589198191622" />
+    <state width="723" height="261" key="GridCell.Tab.1.center" timestamp="1589198191622">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="723" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1589198191622" />
+    <state width="723" height="261" key="GridCell.Tab.1.left" timestamp="1589198191622">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="723" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1589198191622" />
+    <state width="723" height="261" key="GridCell.Tab.1.right" timestamp="1589198191622">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="723" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589198191622" />
+    <state x="407" y="91" key="SettingsEditor" timestamp="1589196403991">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="407" y="91" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1589196403991" />
     <state x="611" y="170" key="refactoring.ChangeSignatureDialog" timestamp="1589124216031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="611" y="170" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1589124216031" />
+    <state x="634" y="146" width="672" height="678" key="search.everywhere.popup" timestamp="1589554578444">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="634" y="146" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1589554578444" />
   </component>
 </project>

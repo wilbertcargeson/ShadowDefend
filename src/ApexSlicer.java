@@ -15,7 +15,7 @@ public class ApexSlicer extends Slicer{
     public ApexSlicer(List<Point> trail) {
         super(trail);
         setStats(speed,health,reward,penalty);
-        setSlicerImage(new Image(new FileLoc().getImageFile("MegaSlicer")));
+        setSlicerImage(ShadowDefend.getImageFile("MegaSlicer"));
         childSlicer = new Slicer[]{
                 new MegaSlicer(trail),
                 new MegaSlicer(trail),

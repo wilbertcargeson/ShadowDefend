@@ -1,21 +1,25 @@
 import bagel.*;
 import bagel.map.TiledMap;
 import bagel.util.Point;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShadowDefend extends AbstractGame {
-    private TiledMap map;
+    public static TiledMap map;
     private List<Point> trail;
-    private Spawner slicerSpawner;
+    private SlicerSpawn slicerSpawner;
     private int timescale;
-    private Slicer[] slicerArr;
+    private List<Slicer> slicerArr;
     private boolean start;
+    private BuyPanel buyPanel = new BuyPanel();
 
     private final int SLICER_QTY = 5;
     private final double SLICER_INTERVAL = 5;
 
     public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
 
+    public static int money = 500;
     /**
      * Entry point for Bagel game
      *
@@ -32,7 +36,7 @@ public class ShadowDefend extends AbstractGame {
         map = new TiledMap("res/levels/1.tmx");
         trail = map.getAllPolylines().get(0);
         slicerArr = slicersGenerator(SLICER_QTY, trail);
-        slicerSpawner = new Spawner(slicerArr,SLICER_INTERVAL,SLICER_QTY);
+        slicerSpawner = new SlicerSpawn(slicerArr,SLICER_INTERVAL);
         timescale = BASE_TIMESCALE;
         start = false;
         }
@@ -44,6 +48,13 @@ public class ShadowDefend extends AbstractGame {
     @Override
     protected void update(Input input) {
         map.draw(0, 0, 0, 0, bagel.Window.getWidth(), bagel.Window.getHeight());
+
+        buyPanel.draw();
+
+        if (input.wasPressed(MouseButtons.LEFT)){
+            buyPanel.isClicked(input.getMousePosition());
+        }
+        buyPanel.towerSelected(input);
 
         if ( input.wasPressed(Keys.S) ){
             start = true;
@@ -69,11 +80,24 @@ public class ShadowDefend extends AbstractGame {
     }
 
     // Creates an array of attackers for the spawner
-    private Slicer[] slicersGenerator(int quantity, List<Point> trail){
-        Slicer[] arr = new Slicer[quantity];
+    private List<Slicer> slicersGenerator(int quantity, List<Point> trail){
+        List<Slicer> arr = new ArrayList<Slicer>();
         for ( int i = 0 ; i < quantity ; i++ ){
-            arr[i] = new SuperSlicer(trail);
+            arr.add(new SuperSlicer(trail));
         }
         return arr;
+    }
+
+    private double getMoney(){return money;}
+
+
+    public static Image getImageFile(String fName){
+        return new Image(String.format("res/images/%s.png", fName));
+    }
+    public static Font getFontFile( String fName, int size ){
+        return new Font(String.format("res/fonts/%s.ttf", fName), size);
+    }
+    public static TiledMap getMapFile( String fName ){
+        return new TiledMap(String.format("res/levels/%s.tmx", fName));
     }
 }

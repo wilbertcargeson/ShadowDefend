@@ -15,7 +15,7 @@ public class MegaSlicer extends Slicer{
     public MegaSlicer(List<Point> trail) {
         super(trail);
         setStats(speed,health,reward,penalty);
-        setSlicerImage(new Image(new FileLoc().getImageFile("MegaSlicer")));
+        setSlicerImage(ShadowDefend.getImageFile("MegaSlicer"));
         childSlicer = new Slicer[]{new SuperSlicer(trail), new SuperSlicer(trail)};
         health = childSlicer[0].getHealth() * 2;
         penalty = childSlicer[0].getPenalty() * CHILD_NUMBER;

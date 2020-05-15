@@ -15,7 +15,7 @@ public class SuperSlicer extends Slicer{
     public SuperSlicer(List<Point> trail) {
         super(trail);
         setStats(speed,health,reward,penalty);
-        setSlicerImage(new Image(new FileLoc().getImageFile("SuperSlicer")));
+        setSlicerImage(ShadowDefend.getImageFile("SuperSlicer"));
         childSlicer = new Slicer[]{new RegularSlicer(trail), new RegularSlicer(trail)};
         penalty = childSlicer[0].getPenalty() * CHILD_NUMBER;
     }
