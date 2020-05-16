@@ -1,25 +1,42 @@
+package main;
+
+import slicer.Slicer;
+import slicer.*;
 import bagel.*;
 import bagel.map.TiledMap;
 import bagel.util.Point;
+import tower.Tower;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShadowDefend extends AbstractGame {
-    public static TiledMap map;
-    private List<Point> trail;
-    private SlicerSpawn slicerSpawner;
-    private int timescale;
-    private List<Slicer> slicerArr;
-    private boolean start;
-    private BuyPanel buyPanel = new BuyPanel();
 
+    private SlicerSpawn slicerSpawner;
+    private BuyPanel buyPanel = new BuyPanel();
+    private StatusPanel statusPanel = new StatusPanel();
+    private List<Point> trail;
+    private List<List<SlicerSpawn>> slicerSpawns;
+
+    private boolean start;
+
+    // In game stats
+    private int status = 0;
+    private int wave = 1;
+    private int life = 25;
+
+    public static TiledMap map;
+    private static List<Slicer> slicers;
+    public static List<Tower> towers ;
+
+    public static int timescale;
+    public static int money = 500;
+
+    // Constants
     private final int SLICER_QTY = 5;
     private final double SLICER_INTERVAL = 5;
-
     public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
 
-    public static int money = 500;
     /**
      * Entry point for Bagel game
      *
@@ -35,10 +52,12 @@ public class ShadowDefend extends AbstractGame {
     public ShadowDefend() {
         map = new TiledMap("res/levels/1.tmx");
         trail = map.getAllPolylines().get(0);
-        slicerArr = slicersGenerator(SLICER_QTY, trail);
-        slicerSpawner = new SlicerSpawn(slicerArr,SLICER_INTERVAL);
+        slicers = slicersGenerator(SLICER_QTY, trail);
+        slicerSpawner = new SlicerSpawn(slicers,SLICER_INTERVAL);
         timescale = BASE_TIMESCALE;
         start = false;
+
+        towers = new ArrayList<>();
         }
 
     /**
@@ -48,13 +67,6 @@ public class ShadowDefend extends AbstractGame {
     @Override
     protected void update(Input input) {
         map.draw(0, 0, 0, 0, bagel.Window.getWidth(), bagel.Window.getHeight());
-
-        buyPanel.draw();
-
-        if (input.wasPressed(MouseButtons.LEFT)){
-            buyPanel.isClicked(input.getMousePosition());
-        }
-        buyPanel.towerSelected(input);
 
         if ( input.wasPressed(Keys.S) ){
             start = true;
@@ -77,6 +89,20 @@ public class ShadowDefend extends AbstractGame {
                 Window.close();
             }
         }
+
+        buyPanel.draw();
+
+        buyPanel.towerSelected(input);
+        if (input.wasPressed(MouseButtons.LEFT)){
+            buyPanel.isClicked(input.getMousePosition());
+        }
+
+        // Spawn towers
+        for ( int i = 0 ; i < towers.size(); i++){
+            towers.get(i).spawn();
+        }
+
+        statusPanel.draw(status, wave, life);
     }
 
     // Creates an array of attackers for the spawner
@@ -90,7 +116,7 @@ public class ShadowDefend extends AbstractGame {
 
     private double getMoney(){return money;}
 
-
+    // File handlers
     public static Image getImageFile(String fName){
         return new Image(String.format("res/images/%s.png", fName));
     }
@@ -100,4 +126,5 @@ public class ShadowDefend extends AbstractGame {
     public static TiledMap getMapFile( String fName ){
         return new TiledMap(String.format("res/levels/%s.tmx", fName));
     }
+
 }

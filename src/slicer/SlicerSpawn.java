@@ -1,3 +1,7 @@
+package slicer;
+
+import main.*;
+
 import java.util.List;
 
 public class SlicerSpawn {
@@ -25,6 +29,7 @@ public class SlicerSpawn {
     public boolean waveSpawn(){
         // Checks if the last attacker have reach the end
         if ( slicers.get(attackerQty-1).getIndex() >= slicers.get(attackerQty-1).getMaxIndex()) {
+            System.out.println("Done");
             return false;
         }
         for ( int i = 0; i < attackerQty; i++){

@@ -1,10 +1,13 @@
+package slicer;
+
 import bagel.DrawOptions;
 import bagel.Image;
 import bagel.util.Point;
 import bagel.util.Vector2;
 import java.util.List;
+import main.*;
 
-public abstract class Slicer{
+public abstract class Slicer implements Spawnnable {
 
     private final List<Point> Trail;
     private Image SlicerImage = new Image("res/images/slicer.png");
@@ -23,7 +26,7 @@ public abstract class Slicer{
     public final double REGULAR_REWARD = 2.0;
     public final double REGULAR_PENALTY = 1.0;
 
-    // Slicer stats
+    // Slicer.Slicer stats
     private double speed = REGULAR_SPEED;
     private double health = REGULAR_HEALTH;
     private double reward = REGULAR_REWARD;
@@ -45,7 +48,7 @@ public abstract class Slicer{
 
         for ( int i = 0 ; i<timescale ; i++) {
             if ( index <= maxIndex) {
-                while ( count >= UPDATE_LENGTH) {
+                while ( count >= UPDATE_LENGTH){
                     updateSlicer(UPDATE_LENGTH);
                     count --;
                 }
@@ -66,7 +69,9 @@ public abstract class Slicer{
 
         // If the slicer has arrived at the point, go to next
         if (roundHundredth(vector2.length()) == 0) {
-            index++;
+            if ( index <= maxIndex){
+                index++;
+            }
         }
     }
 

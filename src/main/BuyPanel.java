@@ -1,29 +1,36 @@
+package main;
+
 import bagel.*;
 import bagel.util.Colour;
 import bagel.util.Point;
 import bagel.util.Rectangle;
+import tower.Tank;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class BuyPanel {
 
+    private Image hoverImage;
+    private boolean hover = false;
+    private int selectedIndex ;
+
     private final Image buyPanel = ShadowDefend.getImageFile("buypanel");
     private final Image tank = ShadowDefend.getImageFile("tank");
     private final Image superTank = ShadowDefend.getImageFile("supertank");
     private final Image airplane = ShadowDefend.getImageFile("airsupport");
+
     private final Font keyBindFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
     private final Font moneyFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 36);
 
 
     private final double STARTING_POINT = 64;
     private final double  DISTANCE_BETWEEN = 120;
-    private List<Image> imageList = Arrays.asList(tank, superTank, airplane);
-    private List<Integer> towerPrice = Arrays.asList(250,600,500);
-    private Image hoverImage;
-    private boolean hover = false;
+    private final double X_CENTRE = buyPanel.getWidth()/2;
+    private final double Y_CENTRE = buyPanel.getHeight()/2;
 
+    private final List<Image> imageList = Arrays.asList(tank, superTank, airplane);
+    private final List<Integer> towerPrice = Arrays.asList(250,600,500);
 
     private final String KEY_BIND_TEXT = "Key binds:\n" +
             "\n" +
@@ -31,10 +38,6 @@ public class BuyPanel {
             "L - Increase Timescale\n" +
             "K - Decrease Timescale";
 
-    private final double X_CENTRE = buyPanel.getWidth()/2;
-    private final double Y_CENTRE = buyPanel.getHeight()/2;
-
-    private int money = ShadowDefend.money;
 
     public BuyPanel(){
     }
@@ -53,14 +56,14 @@ public class BuyPanel {
             priceDraw(towerPrice.get(i), imageX,imageY, curr );
         }
 
-        moneyFont.drawString("$"+Integer.toString(money), Window.getWidth() - 200, 65);
+        moneyFont.drawString(String.format("$%d",ShadowDefend.money), Window.getWidth() - 200, 65);
     }
 
     public void priceDraw( int item , double imageX, double imageY, Image image ){
         Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 20);
         Colour colour;
         // Not enough money to buy, will be Red
-        if ( item > money ){
+        if ( item > ShadowDefend.money ){
             colour = Colour.RED;
         }
         else {
@@ -79,22 +82,53 @@ public class BuyPanel {
             double imageY =  Y_CENTRE  - 10;
             Rectangle boundBox = curr.getBoundingBoxAt(new Point(imageX,imageY));
 
-            if (boundBox.intersects(mousePoint)){
-                System.out.printf("Tower %d selected\n", i);
+            if ( ( boundBox.intersects(mousePoint) ) && !hover){
+                System.out.printf("tower.Tower %d selected\n", i);
                 hoverImage = curr;
                 hover = true;
+                selectedIndex = i;
                 return;
             }
         }
     }
 
     public void towerSelected(Input input){
+        boolean onBudget = ( ShadowDefend.money >= towerPrice.get(selectedIndex) );
+
         if ( input.wasPressed(MouseButtons.RIGHT)){
             hover = false;
         }
 
-        if ( hover ){
-            hoverImage.draw(input.getMouseX(),input.getMouseY());
+        if ( hover && onBudget){
+            Rectangle boundBox = hoverImage.getBoundingBoxAt(input.getMousePosition());
+
+            // Checks whether the selected tower is hovering over a legal spot
+            boolean isOnRoute = ShadowDefend.map.getPropertyBoolean((int)input.getMouseX(),
+                    (int)input.getMouseY(),"blocked", false);
+
+            // Checks whether the point intersects the bounding boc of other towers
+            boolean isOverlap = false;
+            for ( int i = 0 ; i < ShadowDefend.towers.size(); i++){
+                if ( ShadowDefend.towers.get(i).getBoundingBox().intersects(input.getMousePosition())){
+                    isOverlap = true;
+                    break;
+                }
+            }
+
+            // Checks whether the selected object is outside the panel itself
+            boolean isOnPanel = buyPanel.getBoundingBox().intersects(
+                    hoverImage.getBoundingBoxAt(input.getMousePosition()));
+
+            if (!isOnRoute && !isOverlap && !isOnPanel){
+                hoverImage.draw(input.getMouseX(), input.getMouseY());
+
+                // Place on point
+                if (input.wasPressed(MouseButtons.LEFT)){
+                    ShadowDefend.towers.add(new Tank(input.getMousePosition(), hoverImage));
+                    hover = false;
+                    ShadowDefend.money -= towerPrice.get(selectedIndex);
+                }
+            }
         }
     }
 

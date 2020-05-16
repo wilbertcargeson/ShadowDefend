@@ -1,5 +1,8 @@
-import bagel.Image;
+package slicer;
+
 import bagel.util.Point;
+import main.ShadowDefend;
+
 import java.util.List;
 
 public class SuperSlicer extends Slicer{
@@ -15,7 +18,7 @@ public class SuperSlicer extends Slicer{
     public SuperSlicer(List<Point> trail) {
         super(trail);
         setStats(speed,health,reward,penalty);
-        setSlicerImage(ShadowDefend.getImageFile("SuperSlicer"));
+        setSlicerImage(ShadowDefend.getImageFile("superslicer"));
         childSlicer = new Slicer[]{new RegularSlicer(trail), new RegularSlicer(trail)};
         penalty = childSlicer[0].getPenalty() * CHILD_NUMBER;
     }

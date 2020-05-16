@@ -1,3 +1,5 @@
+package slicer;
+
 import bagel.util.Point;
 import java.util.List;
 
