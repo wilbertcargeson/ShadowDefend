@@ -1,7 +1,3 @@
-package slicer;
-
-import main.*;
-
 import java.util.List;
 
 public class SlicerSpawn {

@@ -1,11 +1,6 @@
-package main;
-
-import slicer.Slicer;
-import slicer.*;
 import bagel.*;
 import bagel.map.TiledMap;
 import bagel.util.Point;
-import tower.Tower;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +13,7 @@ public class ShadowDefend extends AbstractGame {
     private List<Point> trail;
     private List<List<SlicerSpawn>> slicerSpawns;
 
-    private boolean start;
+    public static boolean start;
 
     // In game stats
     private int status = 0;
@@ -26,17 +21,21 @@ public class ShadowDefend extends AbstractGame {
     private int life = 25;
 
     public static TiledMap map;
-    private static List<Slicer> slicers;
+    public static List<Slicer> slicers;
     public static List<Tower> towers ;
 
     public static int timescale;
-    public static int money = 500;
+    public static int money = 5000;
 
     // Constants
     private final int SLICER_QTY = 5;
     private final double SLICER_INTERVAL = 5;
+
+    public final static int FPS = 60;
     public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
 
+
+    public static Input test;
     /**
      * Entry point for Bagel game
      *
@@ -67,7 +66,7 @@ public class ShadowDefend extends AbstractGame {
     @Override
     protected void update(Input input) {
         map.draw(0, 0, 0, 0, bagel.Window.getWidth(), bagel.Window.getHeight());
-
+        test = input;
         if ( input.wasPressed(Keys.S) ){
             start = true;
         }
@@ -115,6 +114,38 @@ public class ShadowDefend extends AbstractGame {
     }
 
     private double getMoney(){return money;}
+
+    public static double calcRad( double opp, double adj){
+
+        // Handling division by 0 error
+        if ( (adj == 0) && (opp != 0)){
+            if ( opp > 0){
+                return 0.5*Math.PI;
+            }
+            else{
+                return -0.5*Math.PI;
+            }
+        }
+        double r = Math.atan(opp/adj);
+
+        // Ensures that we get in range of 0 to 2PI
+        while ( r < 0 ){
+            r += 2 * Math.PI;
+        }
+        // Handles where adjacent sign was ignored when opp = 0
+        if (( r == 0 ) && (adj<0)){
+            return Math.PI;
+        }
+        // Handles 3rd quartile of the angles
+        if ( ( opp > 0 ) && (adj < 0)){
+            r -= Math.PI;
+        }
+        // Handles 4th quartile of the angles
+        if ( (opp < 0) && (adj < 0)){
+            r += Math.PI;
+        }
+        return r;
+    }
 
     // File handlers
     public static Image getImageFile(String fName){

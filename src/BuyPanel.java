@@ -1,10 +1,7 @@
-package main;
-
 import bagel.*;
 import bagel.util.Colour;
 import bagel.util.Point;
 import bagel.util.Rectangle;
-import tower.Tank;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,7 +80,7 @@ public class BuyPanel {
             Rectangle boundBox = curr.getBoundingBoxAt(new Point(imageX,imageY));
 
             if ( ( boundBox.intersects(mousePoint) ) && !hover){
-                System.out.printf("tower.Tower %d selected\n", i);
+                System.out.printf("Tower %d selected\n", i);
                 hoverImage = curr;
                 hover = true;
                 selectedIndex = i;

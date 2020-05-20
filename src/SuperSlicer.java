@@ -1,7 +1,4 @@
-package slicer;
-
 import bagel.util.Point;
-import main.ShadowDefend;
 
 import java.util.List;
 

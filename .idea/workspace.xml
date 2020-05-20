@@ -2,30 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41a703a6-a44e-4027-96fa-c1e8f2b1a99e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tower/Tower.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApexSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/ApexSlicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Attacker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/BuyPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Generator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MegaSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/MegaSlicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegularSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/RegularSlicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ShadowDefend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ShadowDefend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Slicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/Slicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SlicerSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/SlicerSpawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SuperSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slicer/SuperSlicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tower.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ApexSlicer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Attacker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BuyPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Generator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MegaSlicer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/RegularSlicer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ShadowDefend.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Slicer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SlicerSpawn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SuperSlicer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Tower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UML Class.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/BuyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BuyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ShadowDefend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShadowDefend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/StatusPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StatusPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/ApexSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApexSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/MegaSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MegaSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/RegularSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RegularSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/Slicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Slicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/SlicerSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SlicerSpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slicer/SuperSlicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SuperSlicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tower/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tower/Tower.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/BuyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/BuyPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/ShadowDefend.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/ShadowDefend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Spawnnable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/StatusPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/StatusPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/slicer/Slicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/slicer/Slicer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tower/Tower.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tower/Tower.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +55,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../wcargeson-project-1" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="ShadowDefend" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.ShadowDefend" />
+      <option name="MAIN_CLASS_NAME" value="ShadowDefend" />
       <module name="wcargeson-project-2" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -91,10 +92,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1589641972340" />
-    <state x="551" y="303" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589557426694">
+    <state x="551" y="303" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589809548176">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="551" y="303" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1589557426694" />
+    <state x="551" y="303" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1589809548176" />
+    <state x="566" y="319" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1589809520990">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="566" y="319" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.824@0.0.1536.824" timestamp="1589809520990" />
     <state x="250" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589211015453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -103,22 +108,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="667" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589614845822" />
-    <state width="1493" height="141" key="GridCell.Tab.0.bottom" timestamp="1589643473193">
+    <state width="1493" height="134" key="GridCell.Tab.0.bottom" timestamp="1589711836018">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="141" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589643473193" />
-    <state width="1493" height="141" key="GridCell.Tab.0.center" timestamp="1589643473192">
+    <state width="1493" height="134" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589711836018" />
+    <state width="1493" height="134" key="GridCell.Tab.0.center" timestamp="1589711836017">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="141" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589643473192" />
-    <state width="1493" height="141" key="GridCell.Tab.0.left" timestamp="1589643473192">
+    <state width="1493" height="134" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589711836017" />
+    <state width="1493" height="134" key="GridCell.Tab.0.left" timestamp="1589711836017">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="141" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589643473192" />
-    <state width="1493" height="141" key="GridCell.Tab.0.right" timestamp="1589643473193">
+    <state width="1493" height="134" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589711836017" />
+    <state width="1493" height="134" key="GridCell.Tab.0.right" timestamp="1589711836017">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="141" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589643473193" />
+    <state width="1493" height="134" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589711836017" />
     <state width="723" height="261" key="GridCell.Tab.1.bottom" timestamp="1589198191622">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

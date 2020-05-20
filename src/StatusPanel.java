@@ -1,5 +1,3 @@
-package main;
-
 import bagel.DrawOptions;
 import bagel.Font;
 import bagel.Image;
