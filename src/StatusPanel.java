@@ -10,10 +10,9 @@ import java.util.List;
 public class StatusPanel {
 
     private Image image = ShadowDefend.getImageFile("statuspanel");
-    private List<String> stringList = Arrays.asList("Winner!","Placing", "Wave In Progress", "Awaiting Start");
     private Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
 
-    public void draw( int status, int wave, int life ){
+    public void draw(){
         double imageX = 0;
         double imageY = bagel.Window.getHeight() - image.getHeight();
         image.drawFromTopLeft(imageX, imageY);
@@ -22,7 +21,7 @@ public class StatusPanel {
         double textY = bagel.Window.getHeight() - image.getHeight()/2 ;
 
         // Wave number
-        font.drawString(String.format("Wave:%d",wave), 3, textY);
+        font.drawString(String.format("Wave:%d",ShadowDefend.wave), 3, textY);
 
         // Print timescale into status panel
         double timescale = ShadowDefend.timescale;
@@ -35,9 +34,10 @@ public class StatusPanel {
         }
 
         // Print status
-        font.drawString(String.format("Status: %s", stringList.get(status)), bagel.Window.getWidth() * 0.66, textY);
+        font.drawString(String.format("Status: %s", ShadowDefend.status.getStatus()),
+                bagel.Window.getWidth() * 0.66, textY);
 
         // Print live
-        font.drawString(String.format("Lives : %d", life), bagel.Window.getWidth() - 75, textY);
+        font.drawString(String.format("Lives : %d", ShadowDefend.life), bagel.Window.getWidth() - 75, textY);
     }
 }

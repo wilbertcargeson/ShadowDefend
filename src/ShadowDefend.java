@@ -1,5 +1,6 @@
 import bagel.*;
 import bagel.map.TiledMap;
+import bagel.util.Colour;
 import bagel.util.Point;
 
 import java.util.ArrayList;
@@ -16,24 +17,23 @@ public class ShadowDefend extends AbstractGame {
     public static boolean start;
 
     // In game stats
-    private int status = 0;
-    private int wave = 1;
-    private int life = 25;
-
-    public static TiledMap map;
-    public static List<Slicer> slicers;
-    public static List<Tower> towers ;
-
+    public static Status status = new Status();
+    public static int wave = 1;
+    public static int life = 25;
     public static int timescale;
     public static int money = 5000;
 
+    public static TiledMap map;
+    public static List<Slicer> slicers = new ArrayList<>();
+    public static List<Tower> towers = new ArrayList<>();;
+    public static List<Projectile> projectiles = new ArrayList<>();
+
     // Constants
-    private final int SLICER_QTY = 5;
+    private final int SLICER_QTY = 20;
     private final double SLICER_INTERVAL = 5;
 
     public final static int FPS = 60;
     public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
-
 
     public static Input test;
     /**
@@ -51,8 +51,7 @@ public class ShadowDefend extends AbstractGame {
     public ShadowDefend() {
         map = new TiledMap("res/levels/1.tmx");
         trail = map.getAllPolylines().get(0);
-        slicers = slicersGenerator(SLICER_QTY, trail);
-        slicerSpawner = new SlicerSpawn(slicers,SLICER_INTERVAL);
+        slicerSpawner = new SlicerSpawn(slicersGenerator(SLICER_QTY, trail),SLICER_INTERVAL);
         timescale = BASE_TIMESCALE;
         start = false;
 
@@ -69,24 +68,26 @@ public class ShadowDefend extends AbstractGame {
         test = input;
         if ( input.wasPressed(Keys.S) ){
             start = true;
+            status.setProgress();
         }
 
         if (start){
             // Increase timescale
             if ( input.wasPressed(Keys.L) ){
                 timescale++;
-                slicerSpawner.setTimescale(timescale);
             }
             // Decrease timescale
             if (input.wasPressed(Keys.K) && timescale > BASE_TIMESCALE){
                 timescale--;
-                slicerSpawner.setTimescale(timescale);
             }
-            // Spawns the wave of slicers
-            // Close window when the last slicer has exited
-            if (!(slicerSpawner.waveSpawn())) {
-                Window.close();
+
+            // Win condition
+            if (!(slicerSpawner.runWave()) && ( life > 0) ) {
+                status.setWin();
+                start = false;
             }
+
+
         }
 
         buyPanel.draw();
@@ -101,7 +102,13 @@ public class ShadowDefend extends AbstractGame {
             towers.get(i).spawn();
         }
 
-        statusPanel.draw(status, wave, life);
+        statusPanel.draw();
+
+        // Lose condition
+        if ( life <= 0 ){
+            loseCondition(input);
+        }
+        runProjectile();
     }
 
     // Creates an array of attackers for the spawner
@@ -111,40 +118,6 @@ public class ShadowDefend extends AbstractGame {
             arr.add(new SuperSlicer(trail));
         }
         return arr;
-    }
-
-    private double getMoney(){return money;}
-
-    public static double calcRad( double opp, double adj){
-
-        // Handling division by 0 error
-        if ( (adj == 0) && (opp != 0)){
-            if ( opp > 0){
-                return 0.5*Math.PI;
-            }
-            else{
-                return -0.5*Math.PI;
-            }
-        }
-        double r = Math.atan(opp/adj);
-
-        // Ensures that we get in range of 0 to 2PI
-        while ( r < 0 ){
-            r += 2 * Math.PI;
-        }
-        // Handles where adjacent sign was ignored when opp = 0
-        if (( r == 0 ) && (adj<0)){
-            return Math.PI;
-        }
-        // Handles 3rd quartile of the angles
-        if ( ( opp > 0 ) && (adj < 0)){
-            r -= Math.PI;
-        }
-        // Handles 4th quartile of the angles
-        if ( (opp < 0) && (adj < 0)){
-            r += Math.PI;
-        }
-        return r;
     }
 
     // File handlers
@@ -157,5 +130,36 @@ public class ShadowDefend extends AbstractGame {
     public static TiledMap getMapFile( String fName ){
         return new TiledMap(String.format("res/levels/%s.tmx", fName));
     }
+
+    public static void inflictDamage( double penalty ){ life -= penalty ;}
+
+    private void loseCondition(Input input){
+        start = false;
+        Font font = getFontFile("DejaVuSans-Bold", 144 );
+        font.drawString("GAME OVER", bagel.Window.getWidth()/2 - font.getWidth("GAME OVER")/2
+                , bagel.Window.getHeight()/2, new DrawOptions().setBlendColour(Colour.BLACK));
+
+        String restart = "PRESS R TO CONTINUE";
+        font = getFontFile("DejaVuSans-Bold", 36);
+        font.drawString(restart, bagel.Window.getWidth()/2 - font.getWidth(restart)/2,
+                bagel.Window.getHeight()/2 + 144, new DrawOptions().setBlendColour(Colour.GREEN));
+
+        if (input.wasPressed(Keys.R)){
+            life = 25;
+            start = true;
+        }
+    }
+
+    public static void earnReward(int reward){
+        money += reward;
+    }
+
+    public void runProjectile(){
+        for ( int i = 0 ; i < projectiles.size(); i++){
+            projectiles.get(i).run();
+        }
+    }
+
+
 
 }

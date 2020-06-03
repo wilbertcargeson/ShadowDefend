@@ -91,19 +91,19 @@ public class BuyPanel {
 
     public void towerSelected(Input input){
         boolean onBudget = ( ShadowDefend.money >= towerPrice.get(selectedIndex) );
-
         if ( input.wasPressed(MouseButtons.RIGHT)){
             hover = false;
         }
 
         if ( hover && onBudget){
             Rectangle boundBox = hoverImage.getBoundingBoxAt(input.getMousePosition());
+            ShadowDefend.status.setPlacing();
 
             // Checks whether the selected tower is hovering over a legal spot
             boolean isOnRoute = ShadowDefend.map.getPropertyBoolean((int)input.getMouseX(),
                     (int)input.getMouseY(),"blocked", false);
 
-            // Checks whether the point intersects the bounding boc of other towers
+            // Checks whether the point intersects the bounding box of other towers
             boolean isOverlap = false;
             for ( int i = 0 ; i < ShadowDefend.towers.size(); i++){
                 if ( ShadowDefend.towers.get(i).getBoundingBox().intersects(input.getMousePosition())){
@@ -121,13 +121,22 @@ public class BuyPanel {
 
                 // Place on point
                 if (input.wasPressed(MouseButtons.LEFT)){
-                    ShadowDefend.towers.add(new Tank(input.getMousePosition(), hoverImage));
+                    ShadowDefend.towers.add(generateTower(selectedIndex, input.getMousePosition()));
                     hover = false;
                     ShadowDefend.money -= towerPrice.get(selectedIndex);
+                    ShadowDefend.status.setWaiting();
                 }
             }
         }
     }
 
-
+    public Tower generateTower(int i, Point point){
+        if ( i == 0 ){
+            return new Tank(point);
+        }
+        else if ( i == 1 ){
+            return new SuperTank(point);
+        }
+            return new Airplane(point);
+    }
 }

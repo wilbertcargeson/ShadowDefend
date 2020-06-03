@@ -2,35 +2,39 @@ import bagel.DrawOptions;
 import bagel.Image;
 import bagel.util.Point;
 import bagel.util.Vector2;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import static ShadowDefend.calcRad;
 
 public abstract class Slicer{
 
     private final List<Point> Trail;
     private Image SlicerImage = new Image("res/images/slicer.png");
 
-    private double slicerX;
-    private double slicerY;
+    protected double slicerX;
+    protected double slicerY;
+
     private int index;
     private double rad ;
-    private double timescale = ShadowDefend.BASE_TIMESCALE;
     private final int maxIndex;
     private final double UPDATE_LENGTH = 1;
 
     // Default slicer stats
     public final double REGULAR_SPEED = 2.0;
-    public final double REGULAR_HEALTH = 1.0;
-    public final double REGULAR_REWARD = 2.0;
-    public final double REGULAR_PENALTY = 1.0;
+
+    protected double speed = REGULAR_SPEED;
+
+    public final int REGULAR_HEALTH = 1;
+    public final int REGULAR_REWARD = 2;
+    public final int REGULAR_PENALTY = 1;
 
     // Slicer.Slicer stats
-    private double speed = REGULAR_SPEED;
-    private double health = REGULAR_HEALTH;
-    private double reward = REGULAR_REWARD;
-    private double penalty = REGULAR_PENALTY;
+    protected int health = REGULAR_HEALTH;
+    protected int reward = REGULAR_REWARD;
+    protected int penalty = REGULAR_PENALTY;
 
+    protected List<Slicer> children = new ArrayList<>();
 
     public Slicer(List<Point> trail) {
         Trail = trail;
@@ -42,10 +46,22 @@ public abstract class Slicer{
 
 
     public void spawn(){
+        // If destroyed
+        if ( health <= 0 ){
+            spawnChildren();
+            ShadowDefend.earnReward(reward);
+            ShadowDefend.slicers.remove(this);
+            return;
+        }
+        // If reach end of polyline
+        if ( index >= maxIndex ){
+            ShadowDefend.inflictDamage(penalty);
+            ShadowDefend.slicers.remove(this);
+        }
+
+
         double count = speed;
-
-
-        for ( int i = 0 ; i<timescale ; i++) {
+        for ( int i = 0 ; i<ShadowDefend.timescale ; i++) {
             if ( index <= maxIndex) {
                 while ( count >= UPDATE_LENGTH){
                     updateSlicer(UPDATE_LENGTH);
@@ -56,6 +72,9 @@ public abstract class Slicer{
         }
 
         SlicerImage.draw(slicerX, slicerY, new DrawOptions().setRotation(rad));
+
+
+
     }
 
     // Update slicer utilizing vectors
@@ -75,7 +94,7 @@ public abstract class Slicer{
     }
 
     // Sets new stats for different kinds of slicers
-    public void setStats( double speed, double health, double reward, double penalty){
+    public void setStats( double speed, int health, int reward, int penalty){
         this.speed = speed;
         this.health = health;
         this.reward = reward;
@@ -91,23 +110,70 @@ public abstract class Slicer{
         return Math.round(n*100)/100;
     }
     // Calculate rad using opposite and adjacent
+    public double calcRad( double opp, double adj){
 
+        // Handling division by 0 error
+        if ( (adj == 0) && (opp != 0)){
+            if ( opp > 0){
+                return 0.5*Math.PI;
+            }
+            else{
+                return -0.5*Math.PI;
+            }
+        }
+        double r = Math.atan(opp/adj);
 
-    public int getIndex(){ return index;}
-
-    public int getMaxIndex(){ return maxIndex;}
-
-    public void setTimescale(double t){
-        timescale = t;
+        // Ensures that we get in range of 0 to 2PI
+        while ( r < 0 ){
+            r += 2 * Math.PI;
+        }
+        // Handles where adjacent sign was ignored when opp = 0
+        if (( r == 0 ) && (adj<0)){
+            return Math.PI;
+        }
+        // Handles 3rd quartile of the angles
+        if ( ( opp > 0 ) && (adj < 0)){
+            r -= Math.PI;
+        }
+        // Handles 4th quartile of the angles
+        if ( (opp < 0) && (adj < 0)){
+            r += Math.PI;
+        }
+        return r;
     }
 
-    public double getPenalty(){return penalty;}
-    public double getHealth() { return health;}
-    public double getReward() { return reward;}
+
+    public int getPenalty(){return penalty;}
+    public int getHealth() { return health;}
+    public int getReward() { return reward;}
     public double getSpeed() { return speed;}
 
     public Point getPoint(){
         return new Point(slicerX,slicerY);
     }
+
+
+
+    public void damaged ( int damage ){
+        health -= damage;
+    }
+
+    // Spawn child slicers on destory
+    public void spawnChildren(){
+        for ( int i = 0 ; i < children.size(); i++ ){
+            Slicer child = children.get(i);
+            child.setXY(this.getPoint());
+            child.setIndex(this.index);
+            ShadowDefend.slicers.add( child );
+
+        }
+    }
+
+    public void setXY( Point point ){
+        slicerX = point.x;
+        slicerY = point.y;
+    }
+
+    public void setIndex( int index ){this.index = index;}
 
 }
