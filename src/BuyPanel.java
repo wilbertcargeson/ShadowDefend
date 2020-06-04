@@ -10,9 +10,9 @@ public class BuyPanel {
 
     private Image hoverImage;
     private boolean hover = false;
-    private int selectedIndex ;
+    private int selectedIndex;
 
-    private final Image buyPanel = ShadowDefend.getImageFile("buypanel");
+    public static final Image buyPanel = ShadowDefend.getImageFile("buypanel");
     private final Image tank = ShadowDefend.getImageFile("tank");
     private final Image superTank = ShadowDefend.getImageFile("supertank");
     private final Image airplane = ShadowDefend.getImageFile("airsupport");
@@ -20,6 +20,8 @@ public class BuyPanel {
     private final Font keyBindFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
     private final Font moneyFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 36);
 
+    // Horizontal : 0 , Vertical = 1
+    private int direction;
 
     private final double STARTING_POINT = 64;
     private final double  DISTANCE_BETWEEN = 120;
@@ -28,6 +30,7 @@ public class BuyPanel {
 
     private final List<Image> imageList = Arrays.asList(tank, superTank, airplane);
     private final List<Integer> towerPrice = Arrays.asList(250,600,500);
+
 
     private final String KEY_BIND_TEXT = "Key binds:\n" +
             "\n" +
@@ -80,7 +83,6 @@ public class BuyPanel {
             Rectangle boundBox = curr.getBoundingBoxAt(new Point(imageX,imageY));
 
             if ( ( boundBox.intersects(mousePoint) ) && !hover){
-                System.out.printf("Tower %d selected\n", i);
                 hoverImage = curr;
                 hover = true;
                 selectedIndex = i;
@@ -99,9 +101,16 @@ public class BuyPanel {
             Rectangle boundBox = hoverImage.getBoundingBoxAt(input.getMousePosition());
             ShadowDefend.status.setPlacing();
 
+            // Checks whether the selected object is outside the panel itself
+            boolean isOnPanel = buyPanel.getBoundingBox().intersects(
+                    hoverImage.getBoundingBoxAt(input.getMousePosition()));
+
+            boolean isOnRoute = false;
             // Checks whether the selected tower is hovering over a legal spot
-            boolean isOnRoute = ShadowDefend.map.getPropertyBoolean((int)input.getMouseX(),
-                    (int)input.getMouseY(),"blocked", false);
+            if ( !isOnPanel ) {
+                isOnRoute = ShadowDefend.map.getPropertyBoolean((int) input.getMouseX(),
+                        (int) input.getMouseY(), "blocked", false);
+            }
 
             // Checks whether the point intersects the bounding box of other towers
             boolean isOverlap = false;
@@ -111,10 +120,6 @@ public class BuyPanel {
                     break;
                 }
             }
-
-            // Checks whether the selected object is outside the panel itself
-            boolean isOnPanel = buyPanel.getBoundingBox().intersects(
-                    hoverImage.getBoundingBoxAt(input.getMousePosition()));
 
             if (!isOnRoute && !isOverlap && !isOnPanel){
                 hoverImage.draw(input.getMouseX(), input.getMouseY());
@@ -131,12 +136,29 @@ public class BuyPanel {
     }
 
     public Tower generateTower(int i, Point point){
-        if ( i == 0 ){
-            return new Tank(point);
+        Tower tower = new Tank(point);
+
+        if ( i == 1 ){
+            tower = new SuperTank(point);
         }
-        else if ( i == 1 ){
-            return new SuperTank(point);
+
+        else if ( i == 2 ){
+            tower = new Airplane(point, direction);
+            System.out.println(direction);
+            alternate();
         }
-            return new Airplane(point);
+
+        return tower;
+
+    }
+
+    // Alternate direction of airplane
+    public void alternate(){
+        if ( direction == 0 ){
+            direction = 1;
+        }
+        else {
+            direction = 0;
+        }
     }
 }

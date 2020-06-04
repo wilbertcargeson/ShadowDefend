@@ -14,6 +14,8 @@ public class ShadowDefend extends AbstractGame {
     private List<Point> trail;
     private List<List<SlicerSpawn>> slicerSpawns;
 
+    private WaveProcessor wp = new WaveProcessor();
+
     public static boolean start;
 
     // In game stats
@@ -29,8 +31,8 @@ public class ShadowDefend extends AbstractGame {
     public static List<Projectile> projectiles = new ArrayList<>();
 
     // Constants
-    private final int SLICER_QTY = 20;
-    private final double SLICER_INTERVAL = 5;
+    private final int SLICER_QTY = 100;
+    private final double SLICER_INTERVAL = 0.25;
 
     public final static int FPS = 60;
     public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
@@ -54,8 +56,8 @@ public class ShadowDefend extends AbstractGame {
         slicerSpawner = new SlicerSpawn(slicersGenerator(SLICER_QTY, trail),SLICER_INTERVAL);
         timescale = BASE_TIMESCALE;
         start = false;
-
         towers = new ArrayList<>();
+        wp.main();
         }
 
     /**
@@ -91,16 +93,12 @@ public class ShadowDefend extends AbstractGame {
         }
 
         buyPanel.draw();
-
         buyPanel.towerSelected(input);
         if (input.wasPressed(MouseButtons.LEFT)){
             buyPanel.isClicked(input.getMousePosition());
         }
-
-        // Spawn towers
-        for ( int i = 0 ; i < towers.size(); i++){
-            towers.get(i).spawn();
-        }
+        runSprites(projectiles);
+        runSprites(towers);
 
         statusPanel.draw();
 
@@ -108,7 +106,6 @@ public class ShadowDefend extends AbstractGame {
         if ( life <= 0 ){
             loseCondition(input);
         }
-        runProjectile();
     }
 
     // Creates an array of attackers for the spawner
@@ -124,6 +121,7 @@ public class ShadowDefend extends AbstractGame {
     public static Image getImageFile(String fName){
         return new Image(String.format("res/images/%s.png", fName));
     }
+
     public static Font getFontFile( String fName, int size ){
         return new Font(String.format("res/fonts/%s.ttf", fName), size);
     }
@@ -154,9 +152,9 @@ public class ShadowDefend extends AbstractGame {
         money += reward;
     }
 
-    public void runProjectile(){
-        for ( int i = 0 ; i < projectiles.size(); i++){
-            projectiles.get(i).run();
+    private static void runSprites ( List<? extends Sprite> sprites){
+        for ( int i = 0 ; i < sprites.size(); i++ ){
+            sprites.get(i).run();
         }
     }
 

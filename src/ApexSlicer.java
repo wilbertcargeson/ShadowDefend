@@ -1,6 +1,5 @@
 import bagel.util.Point;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ApexSlicer extends Slicer{
@@ -9,8 +8,8 @@ public class ApexSlicer extends Slicer{
 
     public ApexSlicer(List<Point> trail) {
         super(trail);
-        setStats(speed,health,reward,penalty);
-        setSlicerImage(ShadowDefend.getImageFile("apexslicer"));
+
+        image = ShadowDefend.getImageFile("apexslicer");
 
         // Add children slicers
         for ( int i = 0 ; i < CHILD_NUMBER ; i++ ){

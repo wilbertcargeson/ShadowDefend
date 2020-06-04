@@ -12,7 +12,7 @@ public class MegaSlicer extends Slicer{
         super(trail);
         speed = REGULAR_SPEED*0.75;
         reward = 10;
-        setSlicerImage(ShadowDefend.getImageFile("megaslicer"));
+        image = ShadowDefend.getImageFile("megaslicer");
         // Implement children..
         health = childSlicer[0].getHealth() * 2;
         penalty = childSlicer[0].getPenalty() * CHILD_NUMBER;

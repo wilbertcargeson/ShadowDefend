@@ -13,7 +13,7 @@ public class SuperSlicer extends Slicer{
         speed = REGULAR_SPEED * 0.75;
         health = REGULAR_HEALTH;
         reward = 15;
-        setSlicerImage(ShadowDefend.getImageFile("superslicer"));
+        image = ShadowDefend.getImageFile("superslicer");
         createChild();
         penalty = 2;
     }

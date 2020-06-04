@@ -22,7 +22,7 @@ public class SlicerSpawn {
         }
         for ( int i = 0; i < ShadowDefend.slicers.size(); i++) {
             // Update only if not end on line
-            ShadowDefend.slicers.get(i).spawn();
+            ShadowDefend.slicers.get(i).run();
         }
         updateCount += ShadowDefend.timescale;
         return true;

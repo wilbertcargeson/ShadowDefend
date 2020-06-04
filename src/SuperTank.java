@@ -1,4 +1,3 @@
-import bagel.Image;
 import bagel.util.Point;
 import bagel.util.Rectangle;
 
@@ -21,9 +20,9 @@ public class SuperTank extends Tower {
     public boolean isInRange(Slicer enemy){
         Point enemyPoint = enemy.getPoint();
         if ( effectBox.intersects(enemy.getPoint()) ) {
-            radian = -calcRad(this.point.x - enemyPoint.x, this.point.y - enemyPoint.y);
-            if (cooldownFrameCount == cooldown){
-                ShadowDefend.projectiles.add(new SuperTankProjectile(point, enemy));
+            rad = -calcRad(spriteX - enemyPoint.x, spriteY - enemyPoint.y);
+            if (ready()){
+                ShadowDefend.projectiles.add(new SuperTankProjectile(this.getPoint(), enemy));
                 cooldownFrameCount = 0;
             }
             return true;
