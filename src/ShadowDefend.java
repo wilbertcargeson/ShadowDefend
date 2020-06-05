@@ -15,24 +15,25 @@ public class ShadowDefend extends AbstractGame {
 
     //TODO Create multiple level mechanism
     private int level;
-    private List<TiledMap> maps;
+    private List<TiledMap> maps = new ArrayList<>();
 
     public static boolean start;
     public static boolean won = false;
 
     // In game stats
-    public static Status status = new Status();
     public static int waveNo = 1;
     public static int life = 25;
     public static int timescale;
-    public static int money = 500;
+    public static int money = 4000;
 
     public static TiledMap map;
+
+    public static Status status = new Status();
+
     public static List<Slicer> slicers = new ArrayList<>();
     public static List<Tower> towers = new ArrayList<>();;
     public static List<Projectile> projectiles = new ArrayList<>();
     public static List<Wave> waveList = new ArrayList<>();
-
 
     public final static int FPS = 60;
     public final static int BASE_TIMESCALE = 1;
@@ -51,12 +52,16 @@ public class ShadowDefend extends AbstractGame {
      * Setup the game
      */
     public ShadowDefend() {
-        map = new TiledMap("res/levels/2.tmx");
+
+        maps.add(new TiledMap("res/levels/1.tmx"));
+        maps.add(new TiledMap("res/levels/2.tmx"));
+
+        level = 0;
+        map = maps.get(level);
         trail = map.getAllPolylines().get(0);
 
         wp = new WaveProcessor("res/levels/waves.txt",trail);
         wp.process();
-
 
         timescale = BASE_TIMESCALE;
         start = false;
@@ -71,6 +76,27 @@ public class ShadowDefend extends AbstractGame {
     protected void update(Input input) {
         map.draw(0, 0, 0, 0, bagel.Window.getWidth(), bagel.Window.getHeight());
 
+        int waveIndex = waveNo-1;
+
+        // Level completed
+        if (waveIndex >= waveList.size()){
+            // Go to next level
+            if ( level < maps.size()){
+                nextLevel();
+                return;
+            }
+            else {
+                status.setWin();
+                won = true;
+            }
+        }
+
+        // Run built sprites
+        runSprites(projectiles);
+        runSprites(towers);
+        runSlicers();
+
+        // Draw panels
         buyPanel.draw();
         buyPanel.towerSelected(input);
         if (input.wasPressed(MouseButtons.LEFT)){
@@ -78,16 +104,13 @@ public class ShadowDefend extends AbstractGame {
         }
         statusPanel.draw();
 
-        runSprites(projectiles);
-        runSprites(towers);
-        runSlicers();
-
         if ( input.wasPressed(Keys.S) ){
             start = true;
-            status.setProgress();
         }
 
         if (start && !won){
+            status.setProgress();
+
             // Increase timescale
             if ( input.wasPressed(Keys.L) ){
                 timescale++;
@@ -98,23 +121,12 @@ public class ShadowDefend extends AbstractGame {
             }
 
             // Wave has been completed and still alive
-            int waveIndex = waveNo-1;
             if (!(waveList.get(waveIndex).run()) && (slicers.size() == 0) ) {
-                // No more waves, hence win
-                if (waveIndex >= waveList.size()){
-                    status.setWin();
-                    won = true;
-                }
-                // Go to next wave
-                else {
-                    money += 150 + ( waveNo * 100);
-                    waveNo++;
-                    status.setWaiting();
-                }
+                money += 150 + ( waveNo * 100);
+                waveNo++;
+                status.setWaiting();
                 start = false;
             }
-
-
         }
 
         // Win condition
@@ -126,8 +138,9 @@ public class ShadowDefend extends AbstractGame {
 
         // Lose condition
         if ( life <= 0 ){
-            bagel.Window.close();
-            //loseCondition(input);
+            //bagel.Window.close();
+            loseCondition(input);
+            start = false;
         }
     }
 
@@ -190,6 +203,22 @@ public class ShadowDefend extends AbstractGame {
             }
         }
         ShadowDefend.runSprites(ShadowDefend.slicers);
+    }
+
+    private void nextLevel(){
+        waveNo = 1;
+        life = 25;
+        money = 500;
+        level+=1;
+        map = maps.get(level);
+        slicers = new ArrayList<>();
+        towers = new ArrayList<>();
+        projectiles = new ArrayList<>();
+        waveList = new ArrayList<>();
+        trail = map.getAllPolylines().get(0);
+        wp = new WaveProcessor("res/levels/waves.txt",trail);
+        wp.process();
+
     }
 
 }

@@ -36,7 +36,7 @@ public abstract class Slicer extends Sprite{
         spriteX = this.trail.get(0).x;
         spriteY = this.trail.get(0).y;
         index = 1;
-        maxIndex = this.trail.size() - 1;
+        maxIndex = this.trail.size();
 
         // Default slicer image
         image = new Image("res/images/slicer.png");
@@ -44,21 +44,20 @@ public abstract class Slicer extends Sprite{
 
     @Override
     public void run(){
+        // Move slicer
+        double count = speed;
+        for ( int i = 0 ; i<ShadowDefend.timescale ; i++) {
+            if ( index < maxIndex) {
+                updateSlicer();
+            }
+        }
+        drawSprite();
 
         // If reach end of polyline
         if ( index >= maxIndex ){
             ShadowDefend.inflictDamage(penalty);
             ShadowDefend.slicers.remove(this);
         }
-
-        // Move slicer
-        double count = speed;
-        for ( int i = 0 ; i<ShadowDefend.timescale ; i++) {
-            if ( index <= maxIndex) {
-                updateSlicer();
-            }
-        }
-        drawSprite();
     }
 
     // Update slicer utilizing vectors

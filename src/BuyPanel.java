@@ -96,6 +96,7 @@ public class BuyPanel {
         boolean onBudget = ( ShadowDefend.money >= towerPrice.get(selectedIndex) );
         if ( input.wasPressed(MouseButtons.RIGHT)){
             hover = false;
+            ShadowDefend.status.setWaiting();
         }
 
         if ( hover && onBudget){
