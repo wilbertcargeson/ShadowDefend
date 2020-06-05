@@ -21,10 +21,10 @@ public class ShadowDefend extends AbstractGame {
     public static boolean won = false;
 
     // In game stats
-    public static int waveNo = 1;
-    public static int life = 25;
+    public static int waveNo;
+    public static int life;
     public static int timescale;
-    public static int money = 4000;
+    public static int money;
 
     public static TiledMap map;
 
@@ -37,6 +37,10 @@ public class ShadowDefend extends AbstractGame {
 
     public final static int FPS = 60;
     public final static int BASE_TIMESCALE = 1;
+
+    public final static int START_WAVE_NUMBER = 1;
+    public final static int START_LIFE = 25;
+    public final static int START_MONEY = 500;
 
 
     /**
@@ -63,9 +67,12 @@ public class ShadowDefend extends AbstractGame {
         wp = new WaveProcessor("res/levels/waves.txt",trail);
         wp.process();
 
+        waveNo = START_WAVE_NUMBER;
+        life = START_LIFE;
         timescale = BASE_TIMESCALE;
+        money = START_MONEY;
+
         start = false;
-        towers = new ArrayList<>();
         }
 
     /**
@@ -104,10 +111,12 @@ public class ShadowDefend extends AbstractGame {
         }
         statusPanel.draw();
 
+        // Indicate start
         if ( input.wasPressed(Keys.S) ){
             start = true;
         }
 
+        // Level in progress
         if (start && !won){
             status.setProgress();
 
@@ -133,38 +142,35 @@ public class ShadowDefend extends AbstractGame {
         if ( life <= 0 ){
             bagel.Window.close();
         }
+
     }
 
-    // File handlers
+    // Returns Image of the specified filename
     public static Image getImageFile(String fName){
         return new Image(String.format("res/images/%s.png", fName));
     }
 
+    // Returns Font of the specified filename
     public static Font getFontFile( String fName, int size ){
         return new Font(String.format("res/fonts/%s.ttf", fName), size);
     }
 
+    // Inflict player damage if slicer reaches end
     public static void inflictDamage( double penalty ){ life -= penalty ;}
 
+    // Earn reward from killing slicers
     public static void earnReward(int reward){
         money += reward;
     }
 
+    // Run sprite list
     public static void runSprites ( List<? extends Sprite> sprites){
         for ( int i = 0 ; i < sprites.size(); i++ ){
             sprites.get(i).run();
         }
     }
 
-    private List<Slicer> slicersGenerator(int quantity) {
-        List<Slicer> arr = new ArrayList<Slicer>();
-        for (int i = 0; i < quantity; i++) {
-            arr.add(new RegularSlicer(trail));
-        }
-        return arr;
-
-    }
-
+    // Run all slicers and remove if dead
     private void runSlicers(){
         // Remove if the slicers are dead
         for ( int i = 0 ; i < ShadowDefend.slicers.size(); i++){
@@ -176,6 +182,7 @@ public class ShadowDefend extends AbstractGame {
         ShadowDefend.runSprites(ShadowDefend.slicers);
     }
 
+    // Reset everything and proceed to next level
     private void nextLevel(){
         waveNo = 1;
         life = 25;
@@ -189,7 +196,6 @@ public class ShadowDefend extends AbstractGame {
         trail = map.getAllPolylines().get(0);
         wp = new WaveProcessor("res/levels/waves.txt",trail);
         wp.process();
-
     }
 
 }

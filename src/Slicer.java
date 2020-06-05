@@ -26,9 +26,6 @@ public abstract class Slicer extends Sprite{
     protected int reward = REGULAR_REWARD;
     protected int penalty = REGULAR_PENALTY;
 
-    private final double UPDATE_LENGTH = 1;
-
-
     protected List<Slicer> children = new ArrayList<>();
 
     public Slicer(List<Point> trail) {
@@ -87,14 +84,18 @@ public abstract class Slicer extends Sprite{
         }
     }
 
+    // Returns whether or not this slicer is dead
     public boolean dead(){return health <= 0;}
 
+    // Do aftermath on slicer's death
     public void aftermath(){
         spawnChildren();
         ShadowDefend.earnReward(reward);
     }
 
     public abstract void createChild();
+
+
     // Setters and Getters
     public int getPenalty(){ return penalty;}
     public void setIndex( int index ){this.index = index;}
