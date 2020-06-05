@@ -8,36 +8,36 @@ import java.util.List;
 
 public class ShadowDefend extends AbstractGame {
 
-    private SlicerSpawn slicerSpawner;
     private BuyPanel buyPanel = new BuyPanel();
     private StatusPanel statusPanel = new StatusPanel();
     private List<Point> trail;
-    private List<List<SlicerSpawn>> slicerSpawns;
+    private WaveProcessor wp;
 
-    private WaveProcessor wp = new WaveProcessor();
+    //TODO Create multiple level mechanism
+    private int level;
+    private List<TiledMap> maps;
 
     public static boolean start;
+    public static boolean won = false;
 
     // In game stats
     public static Status status = new Status();
-    public static int wave = 1;
+    public static int waveNo = 1;
     public static int life = 25;
     public static int timescale;
-    public static int money = 5000;
+    public static int money = 500;
 
     public static TiledMap map;
     public static List<Slicer> slicers = new ArrayList<>();
     public static List<Tower> towers = new ArrayList<>();;
     public static List<Projectile> projectiles = new ArrayList<>();
+    public static List<Wave> waveList = new ArrayList<>();
 
-    // Constants
-    private final int SLICER_QTY = 100;
-    private final double SLICER_INTERVAL = 0.25;
 
     public final static int FPS = 60;
-    public final static int BASE_TIMESCALE = 1; // Public as this value is used to initialize timescale in other classes
+    public final static int BASE_TIMESCALE = 1;
 
-    public static Input test;
+
     /**
      * Entry point for Bagel game
      *
@@ -51,13 +51,16 @@ public class ShadowDefend extends AbstractGame {
      * Setup the game
      */
     public ShadowDefend() {
-        map = new TiledMap("res/levels/1.tmx");
+        map = new TiledMap("res/levels/2.tmx");
         trail = map.getAllPolylines().get(0);
-        slicerSpawner = new SlicerSpawn(slicersGenerator(SLICER_QTY, trail),SLICER_INTERVAL);
+
+        wp = new WaveProcessor("res/levels/waves.txt",trail);
+        wp.process();
+
+
         timescale = BASE_TIMESCALE;
         start = false;
         towers = new ArrayList<>();
-        wp.main();
         }
 
     /**
@@ -67,13 +70,24 @@ public class ShadowDefend extends AbstractGame {
     @Override
     protected void update(Input input) {
         map.draw(0, 0, 0, 0, bagel.Window.getWidth(), bagel.Window.getHeight());
-        test = input;
+
+        buyPanel.draw();
+        buyPanel.towerSelected(input);
+        if (input.wasPressed(MouseButtons.LEFT)){
+            buyPanel.isClicked(input.getMousePosition());
+        }
+        statusPanel.draw();
+
+        runSprites(projectiles);
+        runSprites(towers);
+        runSlicers();
+
         if ( input.wasPressed(Keys.S) ){
             start = true;
             status.setProgress();
         }
 
-        if (start){
+        if (start && !won){
             // Increase timescale
             if ( input.wasPressed(Keys.L) ){
                 timescale++;
@@ -83,38 +97,38 @@ public class ShadowDefend extends AbstractGame {
                 timescale--;
             }
 
-            // Win condition
-            if (!(slicerSpawner.runWave()) && ( life > 0) ) {
-                status.setWin();
+            // Wave has been completed and still alive
+            int waveIndex = waveNo-1;
+            if (!(waveList.get(waveIndex).run()) && (slicers.size() == 0) ) {
+                // No more waves, hence win
+                if (waveIndex >= waveList.size()){
+                    status.setWin();
+                    won = true;
+                }
+                // Go to next wave
+                else {
+                    money += 150 + ( waveNo * 100);
+                    waveNo++;
+                    status.setWaiting();
+                }
                 start = false;
             }
 
 
         }
 
-        buyPanel.draw();
-        buyPanel.towerSelected(input);
-        if (input.wasPressed(MouseButtons.LEFT)){
-            buyPanel.isClicked(input.getMousePosition());
+        // Win condition
+        if (won){
+            Font font = getFontFile("DejaVuSans-Bold", 144 );
+            font.drawString("YOU WIN!", bagel.Window.getWidth()/2 - font.getWidth("YOU WIN!")/2
+                    , bagel.Window.getHeight()/2, new DrawOptions().setBlendColour(Colour.BLACK));
         }
-        runSprites(projectiles);
-        runSprites(towers);
-
-        statusPanel.draw();
 
         // Lose condition
         if ( life <= 0 ){
-            loseCondition(input);
+            bagel.Window.close();
+            //loseCondition(input);
         }
-    }
-
-    // Creates an array of attackers for the spawner
-    private List<Slicer> slicersGenerator(int quantity, List<Point> trail){
-        List<Slicer> arr = new ArrayList<Slicer>();
-        for ( int i = 0 ; i < quantity ; i++ ){
-            arr.add(new SuperSlicer(trail));
-        }
-        return arr;
     }
 
     // File handlers
@@ -137,7 +151,7 @@ public class ShadowDefend extends AbstractGame {
         font.drawString("GAME OVER", bagel.Window.getWidth()/2 - font.getWidth("GAME OVER")/2
                 , bagel.Window.getHeight()/2, new DrawOptions().setBlendColour(Colour.BLACK));
 
-        String restart = "PRESS R TO CONTINUE";
+        String restart = "INSERT COIN TO CONTINUE ( press R )";
         font = getFontFile("DejaVuSans-Bold", 36);
         font.drawString(restart, bagel.Window.getWidth()/2 - font.getWidth(restart)/2,
                 bagel.Window.getHeight()/2 + 144, new DrawOptions().setBlendColour(Colour.GREEN));
@@ -152,12 +166,30 @@ public class ShadowDefend extends AbstractGame {
         money += reward;
     }
 
-    private static void runSprites ( List<? extends Sprite> sprites){
+    public static void runSprites ( List<? extends Sprite> sprites){
         for ( int i = 0 ; i < sprites.size(); i++ ){
             sprites.get(i).run();
         }
     }
 
+    private List<Slicer> slicersGenerator(int quantity) {
+        List<Slicer> arr = new ArrayList<Slicer>();
+        for (int i = 0; i < quantity; i++) {
+            arr.add(new RegularSlicer(trail));
+        }
+        return arr;
 
+    }
+
+    private void runSlicers(){
+        // Remove if the slicers are dead
+        for ( int i = 0 ; i < ShadowDefend.slicers.size(); i++){
+            if (ShadowDefend.slicers.get(i).dead()){
+                ShadowDefend.slicers.get(i).aftermath();
+                ShadowDefend.slicers.remove(i);
+            }
+        }
+        ShadowDefend.runSprites(ShadowDefend.slicers);
+    }
 
 }

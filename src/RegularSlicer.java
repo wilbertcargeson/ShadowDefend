@@ -5,4 +5,7 @@ public class RegularSlicer extends Slicer{
     public RegularSlicer(List<Point> trail) {
         super(trail);
     }
+
+    @Override
+    public void createChild(){}
 }

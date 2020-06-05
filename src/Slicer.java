@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Slicer extends Sprite{
 
-    private final List<Point> trail;
+    protected final List<Point> trail;
 
     private int index;
     private final int maxIndex;
@@ -45,14 +45,6 @@ public abstract class Slicer extends Sprite{
     @Override
     public void run(){
 
-        // If destroyed
-        if ( health <= 0 ){
-            spawnChildren();
-            ShadowDefend.earnReward(reward);
-            ShadowDefend.slicers.remove(this);
-            return;
-        }
-
         // If reach end of polyline
         if ( index >= maxIndex ){
             ShadowDefend.inflictDamage(penalty);
@@ -64,16 +56,9 @@ public abstract class Slicer extends Sprite{
         for ( int i = 0 ; i<ShadowDefend.timescale ; i++) {
             if ( index <= maxIndex) {
                 updateSlicer();
-//                while ( count >= UPDATE_LENGTH){
-//                    updateSlicer();
-//                    count --;
-//                }
-//                updateSlicer();
             }
         }
-
         drawSprite();
-
     }
 
     // Update slicer utilizing vectors
@@ -103,9 +88,16 @@ public abstract class Slicer extends Sprite{
         }
     }
 
+    public boolean dead(){return health <= 0;}
+
+    public void aftermath(){
+        spawnChildren();
+        ShadowDefend.earnReward(reward);
+    }
+
+    public abstract void createChild();
     // Setters and Getters
     public int getPenalty(){ return penalty;}
-    public int getHealth() { return health;}
     public void setIndex( int index ){this.index = index;}
 
 }

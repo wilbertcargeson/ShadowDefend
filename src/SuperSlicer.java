@@ -1,27 +1,21 @@
 import bagel.util.Point;
-
 import java.util.List;
 
 public class SuperSlicer extends Slicer{
 
-    private final double CHILD_NUMBER = 2;
-    List<Point> trail;
+    private final int CHILD_NUMBER = 2;
 
     public SuperSlicer(List<Point> trail) {
         super(trail);
-        this.trail = trail;
         speed = REGULAR_SPEED * 0.75;
         health = REGULAR_HEALTH;
         reward = 15;
         image = ShadowDefend.getImageFile("superslicer");
         createChild();
-        penalty = 2;
+        penalty = children.get(0).penalty * children.size();
     }
 
-    public int getPenalty(){
-        return penalty;
-    }
-
+    @Override
     public void createChild(){
         for ( int i = 0 ; i < CHILD_NUMBER ; i++ ){
             Slicer child = new RegularSlicer(trail);

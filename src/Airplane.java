@@ -3,27 +3,28 @@ import bagel.util.Vector2;
 
 public class Airplane extends Tower{
 
-    private final double MIN = 0;
-    private final double MAX = 3;
-    private final int speed = 5;
+    private final double MIN = 1;
+    private final double MAX = 2;
+    private final int speed = 3;
 
     // Horizontal
     private Point startPoint;
     private Point endPoint;
 
+    private PlaneDirection direction;
 
-    protected Airplane(Point point, int direction) {
+    protected Airplane(Point point, PlaneDirection direction) {
         super(point);
 
         // Horizontal
-        if ( direction == 0 ) {
+        if ( direction == PlaneDirection.HORIZONTAL ) {
             startPoint = new Point(0, point.y);
             endPoint = new Point(bagel.Window.getWidth() + image.getHeight(), point.y);
             rad = Math.PI/2;
         }
         //Vertical
         else {
-            startPoint = new Point(point.x, 0);
+            startPoint = new Point(point.x, BuyPanel.buyPanel.getHeight());
             endPoint = new Point(point.x, bagel.Window.getHeight() + image.getHeight());
             rad = Math.PI;
         }

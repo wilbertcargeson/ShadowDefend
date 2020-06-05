@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class SlicerSpawn {
+public class SlicerSpawn implements Event {
 
     private List<Slicer> waveSlicers;
     private double intervalFrame;
@@ -13,16 +13,11 @@ public class SlicerSpawn {
         updateCount = intervalFrame;
     }
 
-    // Spawns a wave of the attacker
-    public boolean runWave(){
+    // Spawns a wave of the attacker, returns false if no more to spawn
+    public boolean run(){
         spawnSlicer();
-        // Checks if the last attacker have reach the end
-        if ( ( waveSlicers.size() == 0) && ( ShadowDefend.slicers.size() == 0) ){
+        if ( ( waveSlicers.size() == 0) ){
             return false;
-        }
-        for ( int i = 0; i < ShadowDefend.slicers.size(); i++) {
-            // Update only if not end on line
-            ShadowDefend.slicers.get(i).run();
         }
         updateCount += ShadowDefend.timescale;
         return true;
@@ -37,6 +32,7 @@ public class SlicerSpawn {
             waveSlicers.remove(0);
         }
     }
+
 
 
 }

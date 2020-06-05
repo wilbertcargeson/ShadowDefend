@@ -3,9 +3,6 @@ import bagel.Font;
 import bagel.Image;
 import bagel.util.Colour;
 
-import java.util.Arrays;
-import java.util.List;
-
 
 public class StatusPanel {
 
@@ -21,7 +18,7 @@ public class StatusPanel {
         double textY = bagel.Window.getHeight() - image.getHeight()/2 ;
 
         // Wave number
-        font.drawString(String.format("Wave:%d",ShadowDefend.wave), 3, textY);
+        font.drawString(String.format("Wave:%d",ShadowDefend.waveNo), 3, textY);
 
         // Print timescale into status panel
         double timescale = ShadowDefend.timescale;

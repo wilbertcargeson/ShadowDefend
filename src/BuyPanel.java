@@ -21,7 +21,8 @@ public class BuyPanel {
     private final Font moneyFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 36);
 
     // Horizontal : 0 , Vertical = 1
-    private int direction;
+    //private int direction;
+    private PlaneDirection direction = PlaneDirection.HORIZONTAL;
 
     private final double STARTING_POINT = 64;
     private final double  DISTANCE_BETWEEN = 120;
@@ -144,7 +145,6 @@ public class BuyPanel {
 
         else if ( i == 2 ){
             tower = new Airplane(point, direction);
-            System.out.println(direction);
             alternate();
         }
 
@@ -154,11 +154,11 @@ public class BuyPanel {
 
     // Alternate direction of airplane
     public void alternate(){
-        if ( direction == 0 ){
-            direction = 1;
+        if ( direction == PlaneDirection.VERTICAL) {
+            direction = PlaneDirection.HORIZONTAL;
         }
-        else {
-            direction = 0;
+        else if ( direction == PlaneDirection.HORIZONTAL){
+            direction = PlaneDirection.VERTICAL;
         }
     }
 }
