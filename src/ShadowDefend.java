@@ -129,18 +129,9 @@ public class ShadowDefend extends AbstractGame {
             }
         }
 
-        // Win condition
-        if (won){
-            Font font = getFontFile("DejaVuSans-Bold", 144 );
-            font.drawString("YOU WIN!", bagel.Window.getWidth()/2 - font.getWidth("YOU WIN!")/2
-                    , bagel.Window.getHeight()/2, new DrawOptions().setBlendColour(Colour.BLACK));
-        }
-
         // Lose condition
         if ( life <= 0 ){
-            //bagel.Window.close();
-            loseCondition(input);
-            start = false;
+            bagel.Window.close();
         }
     }
 
@@ -152,28 +143,8 @@ public class ShadowDefend extends AbstractGame {
     public static Font getFontFile( String fName, int size ){
         return new Font(String.format("res/fonts/%s.ttf", fName), size);
     }
-    public static TiledMap getMapFile( String fName ){
-        return new TiledMap(String.format("res/levels/%s.tmx", fName));
-    }
 
     public static void inflictDamage( double penalty ){ life -= penalty ;}
-
-    private void loseCondition(Input input){
-        start = false;
-        Font font = getFontFile("DejaVuSans-Bold", 144 );
-        font.drawString("GAME OVER", bagel.Window.getWidth()/2 - font.getWidth("GAME OVER")/2
-                , bagel.Window.getHeight()/2, new DrawOptions().setBlendColour(Colour.BLACK));
-
-        String restart = "INSERT COIN TO CONTINUE ( press R )";
-        font = getFontFile("DejaVuSans-Bold", 36);
-        font.drawString(restart, bagel.Window.getWidth()/2 - font.getWidth(restart)/2,
-                bagel.Window.getHeight()/2 + 144, new DrawOptions().setBlendColour(Colour.GREEN));
-
-        if (input.wasPressed(Keys.R)){
-            life = 25;
-            start = true;
-        }
-    }
 
     public static void earnReward(int reward){
         money += reward;

@@ -1,7 +1,9 @@
-# Project 1: Shadow Defend
+# Project 2: Shadow Defend
 
 by Wilbert Cargeson(1039809)
 
-Please ignore the other branches, please mark only the master branch
+Only the master branch is up for assessing
+
+To view extensions I have added, please check the extension branch
 
 Thanks! :)

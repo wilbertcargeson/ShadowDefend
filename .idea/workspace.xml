@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="41a703a6-a44e-4027-96fa-c1e8f2b1a99e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/levels.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/waves2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BuyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ShadowDefend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShadowDefend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Slicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Slicer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BuyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BuyPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ShadowDefend.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ShadowDefend.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Slicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Slicer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WaveProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WaveProcessor.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
