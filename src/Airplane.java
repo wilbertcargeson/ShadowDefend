@@ -47,7 +47,7 @@ public class Airplane extends Tower{
         }
 
         // Fly into the point and beyond
-        for ( int i = 0 ; i < speed; i++) {
+        for ( int i = 0 ; i < speed * ShadowDefend.timescale; i++) {
             double distance = moveSpriteTo(endPoint);
             if (distance == 0) {
                 ShadowDefend.towers.remove(this);
