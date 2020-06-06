@@ -100,35 +100,35 @@ public class BuyPanel {
         }
 
         if ( hover && onBudget){
-            Rectangle boundBox = hoverImage.getBoundingBoxAt(input.getMousePosition());
+            Point mousePoint = getLimitedMousePoint(input.getMousePosition());
             ShadowDefend.status.setPlacing();
 
             // Checks whether the selected object is outside the panel itself
             boolean isOnPanel = buyPanel.getBoundingBox().intersects(
-                    hoverImage.getBoundingBoxAt(input.getMousePosition()));
+                    hoverImage.getBoundingBoxAt(mousePoint));
 
             boolean isOnRoute = false;
             // Checks whether the selected tower is hovering over a legal spot
             if ( !isOnPanel ) {
-                isOnRoute = ShadowDefend.map.getPropertyBoolean((int) input.getMouseX(),
-                        (int) input.getMouseY(), "blocked", false);
+                isOnRoute = ShadowDefend.map.getPropertyBoolean((int)mousePoint.x,
+                        (int) mousePoint.y, "blocked", false);
             }
 
             // Checks whether the point intersects the bounding box of other towers
             boolean isOverlap = false;
             for ( int i = 0 ; i < ShadowDefend.towers.size(); i++){
-                if ( ShadowDefend.towers.get(i).getBoundingBox().intersects(input.getMousePosition())){
+                if ( ShadowDefend.towers.get(i).getBoundingBox().intersects(mousePoint)){
                     isOverlap = true;
                     break;
                 }
             }
 
             if (!isOnRoute && !isOverlap && !isOnPanel){
-                hoverImage.draw(input.getMouseX(), input.getMouseY());
+                hoverImage.draw(mousePoint.x, mousePoint.y);
 
                 // Place on point
                 if (input.wasPressed(MouseButtons.LEFT)){
-                    ShadowDefend.towers.add(generateTower(selectedIndex, input.getMousePosition()));
+                    ShadowDefend.towers.add(generateTower(selectedIndex, mousePoint));
                     hover = false;
                     ShadowDefend.money -= towerPrice.get(selectedIndex);
                     ShadowDefend.status.setWaiting();
@@ -161,5 +161,29 @@ public class BuyPanel {
         else if ( direction == PlaneDirection.HORIZONTAL){
             direction = PlaneDirection.VERTICAL;
         }
+    }
+
+    // Limits the mouse access from outside the window
+    public Point getLimitedMousePoint( Point mousePoint ){
+        double x = mousePoint.x;
+        double y = mousePoint.y;
+
+        // Limiting X coordinate
+        if ( x > bagel.Window.getWidth() - hoverImage.getWidth()/4){
+            x = bagel.Window.getWidth() - hoverImage.getWidth()/4;
+        }
+        else if ( x < 0 ){
+            x = 0;
+        }
+
+        // Limiting Y coordinate
+        if ( y > bagel.Window.getHeight() - hoverImage.getHeight()/4 - StatusPanel.getHeight()){
+            y = bagel.Window.getHeight() - hoverImage.getHeight()/4 - StatusPanel.getHeight();
+        }
+        else if ( y < 0 ){
+            y = 0;
+        }
+        return new Point(x,y);
+
     }
 }

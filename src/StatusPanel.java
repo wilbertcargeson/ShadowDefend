@@ -6,16 +6,16 @@ import bagel.util.Colour;
 
 public class StatusPanel {
 
-    private Image image = ShadowDefend.getImageFile("statuspanel");
+    public static Image statuspanel = ShadowDefend.getImageFile("statuspanel");
     private Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
 
     public void draw(){
         double imageX = 0;
-        double imageY = bagel.Window.getHeight() - image.getHeight();
-        image.drawFromTopLeft(imageX, imageY);
+        double imageY = bagel.Window.getHeight() - statuspanel.getHeight();
+        statuspanel.drawFromTopLeft(imageX, imageY);
 
         // Y Coordinate of the middle of the status panel
-        double textY = bagel.Window.getHeight() - image.getHeight()/2 ;
+        double textY = bagel.Window.getHeight() - statuspanel.getHeight()/2 ;
 
         // Wave number
         font.drawString(String.format("Wave:%d",ShadowDefend.waveNo), 3, textY);
@@ -36,5 +36,9 @@ public class StatusPanel {
 
         // Print live
         font.drawString(String.format("Lives : %d", ShadowDefend.life), bagel.Window.getWidth() - 75, textY);
+    }
+
+    public static double getHeight(){
+        return statuspanel.getHeight();
     }
 }
