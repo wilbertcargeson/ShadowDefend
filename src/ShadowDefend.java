@@ -60,23 +60,17 @@ public class ShadowDefend extends AbstractGame {
         maps.add(new TiledMap("res/levels/1.tmx"));
         maps.add(new TiledMap("res/levels/2.tmx"));
 
-        level = 1;
+        level = 0;
         map = maps.get(level);
         trail = map.getAllPolylines().get(0);
 
         wp = new WaveProcessor("res/levels/waves.txt",trail);
         wp.process();
 
-//        waveNo = START_WAVE_NUMBER;
-//        life = START_LIFE;
-//        timescale = BASE_TIMESCALE;
-//        money = START_MONEY;
-
-        waveNo = 7;
+        waveNo = START_WAVE_NUMBER;
         life = START_LIFE;
         timescale = BASE_TIMESCALE;
-        money = 5000;
-
+        money = START_MONEY;
 
         start = false;
         }

@@ -1,4 +1,4 @@
-public class DelayEvent implements Event{
+public class DelayEvent extends Event{
 
     private int count = 0;
     private int delayCount;
@@ -7,7 +7,6 @@ public class DelayEvent implements Event{
         delayCount = duration * ShadowDefend.FPS;
     }
 
-    @Override
     public boolean run() {
         if ( count >= delayCount ){
             return false;

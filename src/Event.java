@@ -1,3 +1,3 @@
-public interface Event {
-    public boolean run();
+public abstract class Event {
+    public abstract boolean run();
 }

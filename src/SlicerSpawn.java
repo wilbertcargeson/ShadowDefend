@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class SlicerSpawn implements Event {
+public class SlicerSpawn extends Event {
 
     private List<Slicer> waveSlicers;
     private double intervalFrame;
