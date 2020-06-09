@@ -11,10 +11,13 @@ public class Airplane extends Tower{
     private Point startPoint;
     private Point endPoint;
 
-    private PlaneDirection direction;
-
-    protected Airplane(Point point, PlaneDirection direction) {
+    /** Creates Airplane for the game
+     * @param direction The direction in which the plane should fly : Horizontal/Vertical
+     * @param point The assigned point on the map
+     */
+    public Airplane(Point point, PlaneDirection direction) {
         super(point);
+        image = ShadowDefend.getImageFile("airsupport");
 
         // Horizontal
         if ( direction == PlaneDirection.HORIZONTAL ) {
@@ -29,11 +32,11 @@ public class Airplane extends Tower{
             rad = Math.PI;
         }
 
-        image = ShadowDefend.getImageFile("airsupport");
         this.setXY(startPoint);
         cooldown = randomInt() * ShadowDefend.FPS;
         cooldownFrameCount = 0;
     }
+
 
     @Override
     public void run(){
@@ -58,20 +61,20 @@ public class Airplane extends Tower{
     }
 
     // Generate random int between MIN n MAX
-    public double randomInt(){
+    private double randomInt(){
         double x = (int)(Math.random()*((MAX-MIN)+1))+MIN;
         return x;
     }
 
     // Drop explosive
-    public void dropExplosives(){
+    private void dropExplosives(){
         ShadowDefend.projectiles.add(new Explosive(this.getPoint()));
         cooldown = randomInt() * ShadowDefend.FPS;
         cooldownFrameCount = 0;
     }
 
     @Override
-    // Update sprite coordinates to move towards the target, returns the distance moved
+    // move Sprite to point without rotating
     public double moveSpriteTo( Point target ){
         Vector2 vector2 = new Vector2(target.x - spriteX, target.y - spriteY);
         Point update = vector2.normalised().asPoint();

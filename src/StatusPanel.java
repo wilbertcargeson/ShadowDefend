@@ -9,6 +9,9 @@ public class StatusPanel {
     public static Image statuspanel = ShadowDefend.getImageFile("statuspanel");
     private Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
 
+    /**
+     * Draws the status with the appropriate texts
+     */
     public void draw(){
         double imageX = 0;
         double imageY = bagel.Window.getHeight() - statuspanel.getHeight();

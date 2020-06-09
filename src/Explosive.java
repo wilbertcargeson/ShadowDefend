@@ -11,6 +11,10 @@ public class Explosive extends Projectile{
     private final int COOLDOWN = ShadowDefend.FPS * 2 ;
     private int count = 0;
 
+    /**
+     * Creates explosive in the game
+     * @param start The point in which the explosive is placed
+     */
     public Explosive(Point start) {
         super(start);
 
@@ -23,7 +27,9 @@ public class Explosive extends Projectile{
         spriteY = start.y;
     }
 
-
+    /**
+     * Runs the explosive to explode if enemy are within range
+     */
     @Override
     public void run(){
         if ( ready() ) {
@@ -41,14 +47,14 @@ public class Explosive extends Projectile{
     }
 
     // Checks if any enemy is in range
-    public boolean isInRange(Slicer enemy){
+    private boolean isInRange(Slicer enemy){
         if ( effectBox.intersects(enemy.getPoint()) ) {
             return true;
         }
         return false;
     }
 
-    public boolean ready(){
+    private boolean ready(){
         if ( count < COOLDOWN ){
             count += ShadowDefend.timescale;
             return false;

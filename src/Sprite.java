@@ -16,17 +16,13 @@ public abstract class Sprite {
 
     // Helper functions
 
-    public void drawSprite(){
+    protected void drawSprite(){
         rotate = new DrawOptions().setRotation(rad);
         image.draw(spriteX, spriteY, rotate);
     }
 
-    public void drawSprite( DrawOptions drawOptions){
-        image.draw(spriteX, spriteY, drawOptions);
-    }
-
     // Update sprite coordinates to move towards the target, returns the distance moved
-    public double moveSpriteTo( Point target ){
+    protected double moveSpriteTo( Point target ){
         Vector2 vector2 = new Vector2(target.x - spriteX, target.y - spriteY);
         Point update = vector2.normalised().asPoint();
         spriteX += update.x;
@@ -38,12 +34,12 @@ public abstract class Sprite {
 
 
     // Round up double values to the nearest hundredth
-    public double roundHundredth(double n){
+    protected double roundHundredth(double n){
         return Math.round(n*100)/100;
     }
 
     // Calculate rad using opposite and adjacent
-    public double calcRad( double opp, double adj){
+    protected double calcRad( double opp, double adj){
 
         // Handling division by 0 error
         if ( (adj == 0) && (opp != 0)){

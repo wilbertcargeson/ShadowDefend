@@ -28,6 +28,10 @@ public abstract class Slicer extends Sprite{
 
     protected List<Slicer> children = new ArrayList<>();
 
+    /**
+     * Creates default slicer
+     * @param trail The polyline the slicer is going through
+     */
     public Slicer(List<Point> trail) {
         this.trail = trail;
         spriteX = this.trail.get(0).x;
@@ -39,6 +43,9 @@ public abstract class Slicer extends Sprite{
         image = new Image("res/images/slicer.png");
     }
 
+    /**
+     * Runs the slicer
+     */
     @Override
     public void run(){
         // Move slicer
@@ -58,7 +65,7 @@ public abstract class Slicer extends Sprite{
     }
 
     // Update slicer utilizing vectors
-    public void updateSlicer(){
+    protected void updateSlicer(){
         Point target = trail.get(index);
         // If the slicer has arrived at the point, go to next
         if (moveSpriteTo(target)== 0) {
@@ -69,12 +76,12 @@ public abstract class Slicer extends Sprite{
     }
 
     // Decrease health if damaged
-    public void damaged ( int damage ){
+    protected void damaged ( int damage ){
         health -= damage;
     }
 
     // Spawn child slicers on destroy
-    public void spawnChildren(){
+    protected void spawnChildren(){
         for ( int i = 0 ; i < children.size(); i++ ){
             Slicer child = children.get(i);
             child.setXY(this.getPoint());
@@ -85,19 +92,29 @@ public abstract class Slicer extends Sprite{
     }
 
     // Returns whether or not this slicer is dead
-    public boolean dead(){return health <= 0;}
+    protected boolean dead(){return health <= 0;}
 
     // Do aftermath on slicer's death
-    public void aftermath(){
+    protected void aftermath(){
         spawnChildren();
         ShadowDefend.earnReward(reward);
     }
 
-    public abstract void createChild();
+    protected abstract void createChild();
 
 
     // Setters and Getters
+
+    /**
+     * Gets the penalty
+     * @return penalty of this slicer
+     */
     public int getPenalty(){ return penalty;}
+
+    /**
+     * Set the index of the slicer
+     * @param index Index of the slicer
+     */
     public void setIndex( int index ){this.index = index;}
 
 }

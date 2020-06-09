@@ -5,6 +5,10 @@ public class SuperSlicer extends Slicer{
 
     private final int CHILD_NUMBER = 2;
 
+    /**
+     * Create super slicer
+     * @param trail The polyline where the slicer is moving through
+     */
     public SuperSlicer(List<Point> trail) {
         super(trail);
         speed = REGULAR_SPEED * 0.75;
@@ -16,7 +20,7 @@ public class SuperSlicer extends Slicer{
     }
 
     @Override
-    public void createChild(){
+    protected void createChild(){
         for ( int i = 0 ; i < CHILD_NUMBER ; i++ ){
             Slicer child = new RegularSlicer(trail);
             children.add(child);

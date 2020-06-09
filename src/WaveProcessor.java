@@ -9,21 +9,31 @@ import java.util.Scanner;
 public class WaveProcessor {
 
     private List<String> strings = new ArrayList<>();
-    public final String SEPARATOR = ",";
-    public String filename;
-    public List<Point> trail;
+    private List<Point> trail;
 
-    public static final String REG_SLICER = "slicer";
-    public static final String SUPER_SLICER = "superslicer";
-    public static final String MEGA_SLICER = "megaslicer";
-    public static final String APEX_SLICER = "apexslicer";
-    public static final int MS_TO_S = 1000;
+    private String filename;
 
+    private final String REG_SLICER = "slicer";
+    private final String SUPER_SLICER = "superslicer";
+    private final String MEGA_SLICER = "megaslicer";
+    private final String APEX_SLICER = "apexslicer";
+    private final String SEPARATOR = ",";
+
+    private final int MS_TO_S = 1000;
+
+    /**
+     * Creates the wave processor to process wave textfile
+     * @param filename The filename to be processed
+     * @param trail The polyline in which the slicer will need to follow
+     */
     public WaveProcessor( String filename, List<Point> trail){
         this.filename = filename;
         this.trail = trail;
     }
 
+    /**
+     * Process the text file
+     */
     public void process(){
         readFile();
         for ( int i = 0 ; i < strings.size() ; i++ ){
@@ -32,7 +42,7 @@ public class WaveProcessor {
     }
 
     // Stores the data of the text file into the list
-    public void readFile(){
+    private void readFile(){
         try {
             File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);

@@ -4,25 +4,20 @@ import bagel.util.Rectangle;
 
 public abstract class Tower extends Sprite{
 
-    protected double effectLength = 2*DEFAULT_RADIUS;
+    protected double effectLength;
     protected Rectangle effectBox;
+    protected double cooldown;
+    protected double cooldownFrameCount;
 
-    public final static double DEFAULT_COOLDOWN = 1;
-    public final static int DEFAULT_RADIUS = 100;
-
-    protected double cooldown = DEFAULT_COOLDOWN * ShadowDefend.FPS;
-    protected double cooldownFrameCount = cooldown;
-
-    protected Tower(Point point) {
-        effectBox = new Rectangle(point.x - effectLength/2, point.y - effectLength/2,
-                effectLength, effectLength );
-
-        image = ShadowDefend.getImageFile("tank");
+    protected Tower(Point point){
         rad = 0;
         spriteX = point.x;
         spriteY = point.y;
     }
 
+    /**
+     * Runs the tower
+     */
     @Override
     public void run() {
         if (ready()){
@@ -32,20 +27,7 @@ public abstract class Tower extends Sprite{
         drawSprite();
     }
 
-
-    public void checkEnemy(){
-
-        if (ShadowDefend.start) {
-            for (int i = 0; i < ShadowDefend.slicers.size(); i++) {
-                Slicer enemy = ShadowDefend.slicers.get(i);
-                if (isInRange(enemy)) {
-                    return;
-                }
-            }
-        }
-    }
-
-    public boolean isInRange(Slicer enemy){
+    protected boolean isInRange(Slicer enemy){
         Point enemyPoint = enemy.getPoint();
         if ( effectBox.intersects(enemy.getPoint()) ) {
             rad = -calcRad(spriteX - enemyPoint.x, spriteY - enemyPoint.y);
@@ -59,8 +41,20 @@ public abstract class Tower extends Sprite{
         return false;
     }
 
+    protected void checkEnemy(){
+
+        if (ShadowDefend.start) {
+            for (int i = 0; i < ShadowDefend.slicers.size(); i++) {
+                Slicer enemy = ShadowDefend.slicers.get(i);
+                if (isInRange(enemy)) {
+                    return;
+                }
+            }
+        }
+    }
+
     // Returns true if ready
-    public boolean ready(){
+    protected boolean ready(){
         if ( cooldownFrameCount < cooldown ){
             cooldownFrameCount += ShadowDefend.timescale;
             return false;

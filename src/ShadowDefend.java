@@ -1,6 +1,5 @@
 import bagel.*;
 import bagel.map.TiledMap;
-import bagel.util.Colour;
 import bagel.util.Point;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ public class ShadowDefend extends AbstractGame {
     private List<Point> trail;
     private WaveProcessor wp;
 
-    //TODO Create multiple level mechanism
     private int level;
     private List<TiledMap> maps = new ArrayList<>();
 
@@ -40,7 +38,7 @@ public class ShadowDefend extends AbstractGame {
 
     public final static int START_WAVE_NUMBER = 1;
     public final static int START_LIFE = 25;
-    public final static int START_MONEY = 500;
+    public final static int START_MONEY = 4000;
 
 
     /**
@@ -104,11 +102,7 @@ public class ShadowDefend extends AbstractGame {
         runSlicers();
 
         // Draw panels
-        buyPanel.draw();
-        buyPanel.towerSelected(input);
-        if (input.wasPressed(MouseButtons.LEFT)){
-            buyPanel.isClicked(input.getMousePosition());
-        }
+        buyPanel.run(input);
         statusPanel.draw();
 
         // Indicate start
@@ -146,25 +140,25 @@ public class ShadowDefend extends AbstractGame {
     }
 
     // Returns Image of the specified filename
-    public static Image getImageFile(String fName){
+    protected static Image getImageFile(String fName){
         return new Image(String.format("res/images/%s.png", fName));
     }
 
     // Returns Font of the specified filename
-    public static Font getFontFile( String fName, int size ){
+    protected static Font getFontFile( String fName, int size ){
         return new Font(String.format("res/fonts/%s.ttf", fName), size);
     }
 
     // Inflict player damage if slicer reaches end
-    public static void inflictDamage( double penalty ){ life -= penalty ;}
+    protected static void inflictDamage( double penalty ){ life -= penalty ;}
 
     // Earn reward from killing slicers
-    public static void earnReward(int reward){
+    protected static void earnReward(int reward){
         money += reward;
     }
 
     // Run sprite list
-    public static void runSprites ( List<? extends Sprite> sprites){
+    private static void runSprites ( List<? extends Sprite> sprites){
         for ( int i = 0 ; i < sprites.size(); i++ ){
             sprites.get(i).run();
         }

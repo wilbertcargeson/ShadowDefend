@@ -5,7 +5,11 @@ public class SuperTank extends Tower {
 
     private final double radius = 150;
 
-    protected SuperTank(Point point) {
+    /**
+     * Creates a SuperTank
+     * @param point The point where the super tank is placed
+     */
+    public SuperTank(Point point) {
         super(point);
         image = ShadowDefend.getImageFile("supertank");
         effectLength = 2*radius;
@@ -17,7 +21,7 @@ public class SuperTank extends Tower {
     }
 
     @Override
-    public boolean isInRange(Slicer enemy){
+    protected boolean isInRange(Slicer enemy){
         Point enemyPoint = enemy.getPoint();
         if ( effectBox.intersects(enemy.getPoint()) ) {
             rad = -calcRad(spriteX - enemyPoint.x, spriteY - enemyPoint.y);

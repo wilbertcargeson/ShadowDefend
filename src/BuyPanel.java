@@ -13,6 +13,7 @@ public class BuyPanel {
     private int selectedIndex;
 
     public static final Image buyPanel = ShadowDefend.getImageFile("buypanel");
+
     private final Image tank = ShadowDefend.getImageFile("tank");
     private final Image superTank = ShadowDefend.getImageFile("supertank");
     private final Image airplane = ShadowDefend.getImageFile("airsupport");
@@ -20,8 +21,6 @@ public class BuyPanel {
     private final Font keyBindFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
     private final Font moneyFont = ShadowDefend.getFontFile("DejaVuSans-Bold", 36);
 
-    // Horizontal : 0 , Vertical = 1
-    //private int direction;
     private PlaneDirection direction = PlaneDirection.HORIZONTAL;
 
     private final double STARTING_POINT = 64;
@@ -32,18 +31,31 @@ public class BuyPanel {
     private final List<Image> imageList = Arrays.asList(tank, superTank, airplane);
     private final List<Integer> towerPrice = Arrays.asList(250,600,500);
 
-
     private final String KEY_BIND_TEXT = "Key binds:\n" +
             "\n" +
             "S - Start Wave\n" +
             "L - Increase Timescale\n" +
             "K - Decrease Timescale";
 
-
+    /**
+     * Creates the BuyPanel object
+     */
     public BuyPanel(){
     }
 
-    public void draw(){
+    /**
+     * Runs the buy panel
+     * @param input The user input
+     */
+    public void run(Input input){
+        draw();
+        placingTower(input);
+        if (input.wasPressed(MouseButtons.LEFT)){
+            selectTower(input.getMousePosition());
+        }
+    }
+
+    private void draw(){
         buyPanel.drawFromTopLeft(0,0);
         keyBindFont.drawString(KEY_BIND_TEXT, X_CENTRE-20, 20,
                 new DrawOptions().setBlendColour(Colour.WHITE));
@@ -60,22 +72,8 @@ public class BuyPanel {
         moneyFont.drawString(String.format("$%d",ShadowDefend.money), Window.getWidth() - 200, 65);
     }
 
-    public void priceDraw( int item , double imageX, double imageY, Image image ){
-        Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 20);
-        Colour colour;
-        // Not enough money to buy, will be Red
-        if ( item > ShadowDefend.money ){
-            colour = Colour.RED;
-        }
-        else {
-            colour = Colour.GREEN;
-        }
 
-        font.drawString(String.format("$%s",Integer.toString(item)), imageX, Y_CENTRE + 40 ,
-                new DrawOptions().setBlendColour(colour));
-    }
-
-    public void isClicked(Point mousePoint){
+    private void selectTower(Point mousePoint){
         // Check if pointer is on the bounding box of the image
         for ( int i = 0 ; i < imageList.size() ; i++){
             Image curr = imageList.get(i);
@@ -92,7 +90,7 @@ public class BuyPanel {
         }
     }
 
-    public void towerSelected(Input input){
+    private void placingTower(Input input){
         boolean onBudget = ( ShadowDefend.money >= towerPrice.get(selectedIndex) );
         if ( input.wasPressed(MouseButtons.RIGHT)){
             hover = false;
@@ -137,7 +135,23 @@ public class BuyPanel {
         }
     }
 
-    public Tower generateTower(int i, Point point){
+    private void priceDraw( int item , double imageX, double imageY, Image image ){
+        Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 20);
+        Colour colour;
+        // Not enough money to buy, will be Red
+        if ( item > ShadowDefend.money ){
+            colour = Colour.RED;
+        }
+        else {
+            colour = Colour.GREEN;
+        }
+
+        font.drawString(String.format("$%s",Integer.toString(item)), imageX, Y_CENTRE + 40 ,
+                new DrawOptions().setBlendColour(colour));
+    }
+
+    // Generate tower based on the index selected
+    private Tower generateTower(int i, Point point){
         Tower tower = new Tank(point);
 
         if ( i == 1 ){
@@ -154,7 +168,7 @@ public class BuyPanel {
     }
 
     // Alternate direction of airplane
-    public void alternate(){
+    private void alternate(){
         if ( direction == PlaneDirection.VERTICAL) {
             direction = PlaneDirection.HORIZONTAL;
         }
@@ -164,7 +178,7 @@ public class BuyPanel {
     }
 
     // Limits the mouse access from outside the window
-    public Point getLimitedMousePoint( Point mousePoint ){
+    private Point getLimitedMousePoint( Point mousePoint ){
         double x = mousePoint.x;
         double y = mousePoint.y;
 
