@@ -38,7 +38,7 @@ public class ShadowDefend extends AbstractGame {
 
     public final static int START_WAVE_NUMBER = 1;
     public final static int START_LIFE = 25;
-    public final static int START_MONEY = 4000;
+    public final static int START_MONEY = 500;
 
 
     /**
