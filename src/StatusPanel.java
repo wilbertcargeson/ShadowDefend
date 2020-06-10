@@ -6,7 +6,7 @@ import bagel.util.Colour;
 
 public class StatusPanel {
 
-    public static Image statuspanel = ShadowDefend.getImageFile("statuspanel");
+    private Image statuspanel = ShadowDefend.getImageFile("statuspanel");
     private Font font = ShadowDefend.getFontFile("DejaVuSans-Bold", 12);
 
     /**
@@ -41,7 +41,11 @@ public class StatusPanel {
         font.drawString(String.format("Lives : %d", ShadowDefend.life), bagel.Window.getWidth() - 75, textY);
     }
 
-    public static double getHeight(){
+    /**
+     * Gets the height of the status panel
+     * @return
+     */
+    public double getHeight(){
         return statuspanel.getHeight();
     }
 }

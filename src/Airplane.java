@@ -37,7 +37,9 @@ public class Airplane extends Tower{
         cooldownFrameCount = 0;
     }
 
-
+    /**
+     * Runs the plane to drop explosive as it flies
+     */
     @Override
     public void run(){
 
@@ -73,6 +75,11 @@ public class Airplane extends Tower{
         cooldownFrameCount = 0;
     }
 
+    /**
+     * moves the airplane to the target without rotating
+     * @param target The target the airplane is flying to
+     * @return The value to be added into the X and Y coordinate
+     */
     @Override
     // move Sprite to point without rotating
     public double moveSpriteTo( Point target ){

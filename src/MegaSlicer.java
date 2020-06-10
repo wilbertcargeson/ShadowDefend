@@ -18,6 +18,9 @@ public class MegaSlicer extends Slicer{
         penalty = children.get(0).penalty * children.size();
     }
 
+    /**
+     * Creates super slicer children
+     */
     @Override
     protected void createChild(){
         for ( int i = 0 ; i < CHILD_NUMBER ; i++ ){

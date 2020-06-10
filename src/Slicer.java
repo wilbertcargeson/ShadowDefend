@@ -49,7 +49,6 @@ public abstract class Slicer extends Sprite{
     @Override
     public void run(){
         // Move slicer
-        double count = speed;
         for ( int i = 0 ; i<ShadowDefend.timescale ; i++) {
             if ( index < maxIndex) {
                 updateSlicer();

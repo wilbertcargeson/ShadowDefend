@@ -19,6 +19,9 @@ public class ApexSlicer extends Slicer{
         penalty = children.get(0).getPenalty() * CHILD_NUMBER;
     }
 
+    /**
+     * Create MegaSlicer children
+     */
     @Override
     protected void createChild(){
         for ( int i = 0 ; i < CHILD_NUMBER ; i++ ){

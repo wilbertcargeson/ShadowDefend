@@ -10,6 +10,9 @@ public class RegularSlicer extends Slicer{
         super(trail);
     }
 
+    /**
+     * Creates no child
+     */
     @Override
     public void createChild(){}
 }
