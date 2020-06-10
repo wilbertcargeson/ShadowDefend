@@ -29,7 +29,7 @@ public abstract class Slicer extends Sprite{
     protected List<Slicer> children = new ArrayList<>();
 
     /**
-     * Creates default slicer
+     * Creates default regular slicer
      * @param trail The polyline the slicer is going through
      */
     public Slicer(List<Point> trail) {

@@ -123,7 +123,7 @@ public class ShadowDefend extends AbstractGame {
                 timescale--;
             }
 
-            // Wave has been completed and still alive
+            // Wave has been completed
             if (!(waveList.get(waveIndex).run()) && (slicers.size() == 0) ) {
                 money += 150 + ( waveNo * 100);
                 waveNo++;

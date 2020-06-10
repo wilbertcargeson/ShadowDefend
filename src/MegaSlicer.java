@@ -12,6 +12,7 @@ public class MegaSlicer extends Slicer{
     public MegaSlicer(List<Point> trail) {
         super(trail);
         speed = REGULAR_SPEED*0.75;
+        health = REGULAR_HEALTH*2;
         reward = 10;
         image = ShadowDefend.getImageFile("megaslicer");
         createChild();

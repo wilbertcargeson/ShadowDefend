@@ -12,7 +12,7 @@ public class BuyPanel {
     private boolean hover = false;
     private int selectedIndex;
 
-    public static final Image buyPanel = ShadowDefend.getImageFile("buypanel");
+    private static final Image buyPanel = ShadowDefend.getImageFile("buypanel");
 
     private final Image tank = ShadowDefend.getImageFile("tank");
     private final Image superTank = ShadowDefend.getImageFile("supertank");
@@ -199,5 +199,13 @@ public class BuyPanel {
         }
         return new Point(x,y);
 
+    }
+
+    /**
+     * Gets the image of the buy panel
+     * @return Image of the buy panel
+     */
+    public static Image getImage(){
+        return buyPanel;
     }
 }

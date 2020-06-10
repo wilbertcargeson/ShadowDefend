@@ -27,7 +27,7 @@ public class Airplane extends Tower{
         }
         //Vertical
         else {
-            startPoint = new Point(point.x, BuyPanel.buyPanel.getHeight());
+            startPoint = new Point(point.x, BuyPanel.getImage().getHeight());
             endPoint = new Point(point.x, bagel.Window.getHeight() + image.getHeight());
             rad = Math.PI;
         }
@@ -44,7 +44,7 @@ public class Airplane extends Tower{
     public void run(){
 
         // Checks whether the selected object is outside the panel itself
-        boolean isOffPanel = !BuyPanel.buyPanel.getBoundingBox().intersects(this.getBoundingBox());
+        boolean isOffPanel = !BuyPanel.getImage().getBoundingBox().intersects(this.getBoundingBox());
 
         // Drop explosive
         if ( ready() && isOffPanel ){
